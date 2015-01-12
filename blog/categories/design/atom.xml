@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Design | Pre-Released Ideas]]></title>
   <link href="http://versionzero.github.io/blog/categories/design/atom.xml" rel="self"/>
   <link href="http://versionzero.github.io/"/>
-  <updated>2015-01-12T13:12:38-08:00</updated>
+  <updated>2015-01-12T13:13:29-08:00</updated>
   <id>http://versionzero.github.io/</id>
   <author>
     <name><![CDATA[Ben Burnett]]></name>
@@ -92,53 +92,47 @@ would fit in this workflow.</p>
 
 <p>If I was being honest, this is what I&rsquo;d want:</p>
 
-<p>{% highlight bash %}
-git flow feature start something-cool
-  #hack, hack, hack&hellip;
+<p><div class="highlight"><pre><code class="language-bash" data-lang="bash">git flow feature start something-cool
+  <span class="c">#hack, hack, hack&amp;hellip;</span>
 git add cool.c
-git ticket 43 +4h
-  # did something horribly wrong, how am I still allowed to write code?
-git ticket 43 +1.5h
-git ticket 43 +5h
-git ticket 43 +20m
-  # finally, it&rsquo;s fixed
-git flow feature finish something-cool
-{% endhighlight %}</p>
+git ticket <span class="m">43</span> +4h
+  <span class="c"># did something horribly wrong, how am I still allowed to write code?</span>
+git ticket <span class="m">43</span> +1.5h
+git ticket <span class="m">43</span> +5h
+git ticket <span class="m">43</span> +20m
+  <span class="c"># finally, it&amp;rsquo;s fixed</span>
+git flow feature finish something-cool</code></pre></div></p>
 
 <p>Now, I&rsquo;m married to the sytax, I&rsquo;d prefer that an arbitrary ticket
 number so associable with an arbitrary branch (including a ticket
 branch).  Meaning the above could be simplified further:</p>
 
-<p>{% highlight bash %}
-git flow feature start something-cool
+<p><div class="highlight"><pre><code class="language-bash" data-lang="bash">git flow feature start something-cool
 git ticket associate 43
-  # git-ticket: Active JIRA ticket 43
+  <span class="c"># git-ticket: Active JIRA ticket 43</span>
 git ticket 4h
-  # git-ticket: Added 4 hours to JIRA ticket 43
+  <span class="c"># git-ticket: Added 4 hours to JIRA ticket 43</span>
 git ticket 20m
-  # git-ticket: Added 20 minutes to JIRA ticket 43
+  <span class="c"># git-ticket: Added 20 minutes to JIRA ticket 43</span>
 git flow feature finish something-cool
-  # git-ticket: Active JIRA ticket 43
-  # git-flow: &hellip;
-{% endhighlight %}</p>
+  <span class="c"># git-ticket: Active JIRA ticket 43</span>
+  <span class="c"># git-flow: &amp;hellip;</span></code></pre></div></p>
 
 <p>Further, since it&rsquo;s likely we will want to support more than one
 project at a time.  This means we might run in to a situation where a
 seperate, unrelated project needs to be updated with respect to hours.
 Support for this case would take the following form:</p>
 
-<p>{% highlight bash %}
-git flow feature start something-cool
+<p><div class="highlight"><pre><code class="language-bash" data-lang="bash">git flow feature start something-cool
 gut ticket associate 43
-  # git-ticket: Active JIRA ticket 43
+  <span class="c"># git-ticket: Active JIRA ticket 43</span>
 git ticket 4h
-  # git-ticket: Added 4 hours to JIRA ticket 43
-git ticket 545 20m
-  # git-ticket: Added 20 minutes to JIRA ticket 545
+  <span class="c"># git-ticket: Added 4 hours to JIRA ticket 43</span>
+git ticket <span class="m">545</span> 20m
+  <span class="c"># git-ticket: Added 20 minutes to JIRA ticket 545</span>
 git flow feature finish something-cool
-  # git-ticket: Active JIRA ticket 43
-  # git-flow: &hellip;
-{% endhighlight %}</p>
+  <span class="c"># git-ticket: Active JIRA ticket 43</span>
+  <span class="c"># git-flow: &amp;hellip;</span></code></pre></div></p>
 
 <p>Notice that while we update can update a ticket at anytime, it does
 not mean we change the active ticket.  A sample use might be to do
