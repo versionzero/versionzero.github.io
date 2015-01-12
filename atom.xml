@@ -4,7 +4,7 @@
   <title><![CDATA[Pre-Released Ideas]]></title>
   <link href="http://versionzero.github.io/atom.xml" rel="self"/>
   <link href="http://versionzero.github.io/"/>
-  <updated>2015-01-12T07:11:38-08:00</updated>
+  <updated>2015-01-12T07:26:20-08:00</updated>
   <id>http://versionzero.github.io/</id>
   <author>
     <name><![CDATA[Ben Burnett]]></name>
@@ -18,7 +18,19 @@
     <link href="http://versionzero.github.io/blog/2015/01/11/karabiner-private-xml/"/>
     <updated>2015-01-11T08:41:00-08:00</updated>
     <id>http://versionzero.github.io/blog/2015/01/11/karabiner-private-xml</id>
-    <content type="html"><![CDATA[
+    <content type="html"><![CDATA[<p>Over the years, through school and other areas, I became addicted to
+both Emacs and my Mac. Unfortunately, as both evolved, they became less
+and less friendly with each other.</p>
+
+<p>One thing in particular bothers me about their interaction: the
+keyboard. It used to be I could use Ctrl+Left/Right arrow to skip an
+Emacs defined &ldquo;word&rdquo;; however, this became the way for Mac users to
+switch spaces. This is when I found Karabiner. I now use Karabiner to
+change the purpose of the Fn key so that I can use it and the arrow
+keys to switch spaces, but also maintain the ability to skip around in
+Emacs by words, instead of simply by character or paragraph.</p>
+
+<p>Here is my private.xml for this particular use case:</p>
 
 <div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
 <span class="nt">&lt;root&gt;</span>
