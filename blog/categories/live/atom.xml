@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Live | Pre-Released Ideas]]></title>
   <link href="http://versionzero.github.io/blog/categories/live/atom.xml" rel="self"/>
   <link href="http://versionzero.github.io/"/>
-  <updated>2015-01-11T23:06:20-08:00</updated>
+  <updated>2015-01-11T23:11:10-08:00</updated>
   <id>http://versionzero.github.io/</id>
   <author>
     <name><![CDATA[Ben Burnett]]></name>
@@ -21,7 +21,7 @@
     <content type="html"><![CDATA[<p><div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="ni">&amp;lt;</span>?xml version=<span class="ni">&amp;ldquo;</span>1.0<span class="ni">&amp;rdquo;</span>?&gt;
 <span class="nt">&lt;root&gt;</span>
     <span class="nt">&lt;item&gt;</span>
-        <span class="nt">&lt;name&gt;</span>My Spaces (effective only on Excel)<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;name&gt;</span>My Spaces (I like to use Fn+Left/Right arrow for switching spaces)<span class="nt">&lt;/name&gt;</span>
         <span class="nt">&lt;appendix&gt;</span>Change Fn to Ctrl+Option+Command<span class="nt">&lt;/appendix&gt;</span>
         <span class="nt">&lt;identifier&gt;</span>private.fn_control_option_command_hyper<span class="nt">&lt;/identifier&gt;</span>
         <span class="nt">&lt;autogen&gt;&lt;strong&gt;</span>KeyToKey<span class="nt">&lt;/strong&gt;</span> KeyCode::FN, KeyCode::COMMAND_L, ModifierFlag::OPTION_L, ModifierFlag::CONTROL_L<span class="nt">&lt;/autogen&gt;</span>
