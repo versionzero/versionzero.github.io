@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Trick | Pre-Released Ideas]]></title>
   <link href="http://versionzero.github.io/blog/categories/trick/atom.xml" rel="self"/>
   <link href="http://versionzero.github.io/"/>
-  <updated>2015-01-11T23:16:28-08:00</updated>
+  <updated>2015-01-12T07:11:38-08:00</updated>
   <id>http://versionzero.github.io/</id>
   <author>
     <name><![CDATA[Ben Burnett]]></name>
@@ -31,18 +31,16 @@ first <em>n</em> <a href="http://en.wikipedia.org/wiki/Fibonacci_number">Fibonac
 numbers. It&rsquo;s easy to see why this is done, the code is very simple
 and highly readable:</p>
 
-<p>{% highlight cpp %}
-int fib(int n)
-{
-  if (n &lt;= 0) {
-    return 0;
-  } else if (n == 1 || n == 2) {
-    return 1;
-  } else {
-    return fib(n-1) + fib(n-2);
-  }
-}
-{% endhighlight %}</p>
+<p><div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">fib</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">||</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></div></p>
 
 <p>Of course, we would never actually do this in practice&ndash;since it
 inefficient&ndash;but it does nicely illustrate the beauty of simplicity of
@@ -54,17 +52,15 @@ this, as it seems to only be a &ldquo;feature&rdquo; of the Microsoft C++
 compiler.  It&rsquo;s also non-standard, so it&rsquo;s unlikely to work at any
 point in the future.</p>
 
-<p>{% highlight cpp %}
-template<class T, int n>
-struct fibonacci_numbers {
-    static const T end = fibonacci_numbers&lt;T, n-1>::end
-        + fibonacci_numbers&lt;T, n-2>::end;
-};</p>
+<p><div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="n">fibonacci_numbers</span> <span class="p">{</span>
+    <span class="k">static</span> <span class="k">const</span> <span class="n">T</span> <span class="n">end</span> <span class="o">=</span> <span class="n">fibonacci_numbers</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">T</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">&gt;::</span><span class="n">end</span>
+        <span class="o">+</span> <span class="n">fibonacci_numbers</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">T</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="o">&gt;::</span><span class="n">end</span><span class="p">;</span>
+<span class="p">};</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 
-<p>template<class T> struct fibonacci_numbers&lt;T, 2> { static const T end = 1; };
-template<class T> struct fibonacci_numbers&lt;T, 1> { static const T end = 1; };
-template<class T> struct fibonacci_numbers&lt;T, 0> { static const T end = 0; };
-{% endhighlight %}</p>
+<span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="k">struct</span> <span class="n">fibonacci_numbers</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">T</span><span class="p">,</span> <span class="mi">2</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">static</span> <span class="k">const</span> <span class="n">T</span> <span class="n">end</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="p">};</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="k">struct</span> <span class="n">fibonacci_numbers</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">T</span><span class="p">,</span> <span class="mi">1</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">static</span> <span class="k">const</span> <span class="n">T</span> <span class="n">end</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="p">};</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="k">struct</span> <span class="n">fibonacci_numbers</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">T</span><span class="p">,</span> <span class="mi">0</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">static</span> <span class="k">const</span> <span class="n">T</span> <span class="n">end</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">};</span></code></pre></div></p>
 
 <p>The code uses a few tricks to accomplish it&rsquo;s job: We use partial
 specialization to help define the base case of the recursion.  This
@@ -81,17 +77,15 @@ stack storage for each definition.</p>
 nature of the template recursion.  The following loop prints the first
 12 Fibonacci numbers:</p>
 
-<p>{% highlight cpp %}
-int
-main ()
-{
-  fibonacci_numbers&lt;int, 12> fibonacci;
-  for (int i = n; i >= 0; i&ndash;) {
-    cout &lt;&lt; (n-i) &lt;&lt; (*((&amp;fibonacci)-i)).end &lt;&lt; &ldquo;\n&rdquo;;
-  }
-  return 0;
-}
-{% endhighlight %}</p>
+<p><div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span>
+<span class="nf">main</span> <span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">fibonacci_numbers</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">12</span><span class="o">&gt;</span> <span class="n">fibonacci</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&amp;</span><span class="n">ndash</span><span class="p">;)</span> <span class="p">{</span>
+    <span class="n">cout</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">i</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="p">(</span><span class="o">*</span><span class="p">((</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">fibonacci</span><span class="p">)</span><span class="o">-</span><span class="n">i</span><span class="p">)).</span><span class="n">end</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="err">\</span><span class="n">n</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div></p>
 
 <p>It&rsquo;s not pretty, but it is effective.  It should be easy to write an
 iterator wrapper for the above code, but I&rsquo;ll leave that for a future
