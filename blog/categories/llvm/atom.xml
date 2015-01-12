@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Llvm | Pre-Released Ideas]]></title>
+  <link href="http://versionzero.github.io/blog/categories/llvm/atom.xml" rel="self"/>
+  <link href="http://versionzero.github.io/"/>
+  <updated>2015-01-11T23:05:31-08:00</updated>
+  <id>http://versionzero.github.io/</id>
+  <author>
+    <name><![CDATA[Ben Burnett]]></name>
+    <email><![CDATA[yeah@right.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Mac OS Gets Cilk++ Support via Clang and LLVM]]></title>
+    <link href="http://versionzero.github.io/blog/2013/03/24/mac-os-gets-cilk-plus-plus-support-via-clang-and-llvm/"/>
+    <updated>2013-03-24T17:35:00-07:00</updated>
+    <id>http://versionzero.github.io/blog/2013/03/24/mac-os-gets-cilk-plus-plus-support-via-clang-and-llvm</id>
+    <content type="html"><![CDATA[<p>Part of my yet un-finished graduate work involved using a combination
+of threading and cache-oblivious algorithms to improve the performance
+of various linear algebra computations on sparse data sets.  During
+the course of my work, I used a few concurrency models, including
+Intel&rsquo;s <a href="http://cilkplus.org">Cilk Plus</a> data and task parallelism
+techniques.</p>
+
+<p>Recently, the <a href="http://cilkplus.github.com">Cilk Plus language extensions were introduced to the Clang frontend for LLVM</a>.  Which mean it
+was available on Darwin.  Though the <a href="http://gcc.gnu.org/svn/gcc/branches/cilkplus/">Cilk Plus extensions and runtime have been available in GCC</a> for some time,
+building the GCC code on Darwin proved to be non-trivial. (For me, at
+least&mdash; the Linux build was far easier.)  The introduction of Cilk
+Plus in Clang allows for easy compilation and use on the Darwin
+platform.</p>
+
+<!--more-->
+
+
+<p>I used the instructions given on the new <a href="http://cilkplus.github.com">Cilk Plus/LLVM GitHub site</a>
+to try a copy of the compiler on my local machine.</p>
+
+<p>The current implementation only provides support for a subset of the
+Cilk Plus language extensions: <code>cilk_spawn</code>, <code>cilk_sync</code>, and
+<code>hyperobjects</code>.  Leaving features like <code>cilk_for</code>, array notation and
+SIMD work for future releases.  Despite the not providing a full
+feature-set, the Cilk Plus/LLVM tools can already be used to make
+non-trivial parallel programs.</p>
+
+<p>I dusted off some benchmarking code I used for previous experiments
+and gave it a go on my laptop.  While not a high-performance big-steel
+machine, my laptop does weigh in well with 16GB of RAM and a quad-core
+Intel i7.</p>
+
+<p>The code I ran uses a well-known matrix multiplication algorithm&mdash;
+<a href="http://en.wikipedia.org/wiki/Strassen_algorithm">Strassen&rsquo;s algorithm</a>&mdash;to
+create large parallel workloads.  The code was based on example code
+shipped with the original 1996 <a href="http://supertech.csail.mit.edu/cilk/">MIT Cilk language and runtime</a>.  I modified the code
+slightly to include the new language extensions as well as to provide
+slightly more performance information. (I&rsquo;ll post the changes
+shortly.)</p>
+
+<p>I ran the code through a variety of benchmarks, which I&rsquo;ve included
+bellow.</p>
+
+<p><img src="/images/speed-up.png" title="Speedup of Strassen's Algorithm with
+ Cilk Plus/LLVM" alt="speedup" /></p>
+
+<p>The legend labels describe the size of the matrices being used.  For
+instance, 1024 mean that Strassen&rsquo;s Algorithm is being run using
+inputs of size 1024 by 1024.  Notice we don&rsquo;t achieve linear
+<a href="http://en.wikipedia.org/wiki/Speedup">speedup</a>, but we do get very
+close.  I think with a little extra fine tuning (1) and the explicit
+use of some SIMD instructions, near-linear speedup could be
+achieved. If you want the data, you can get it
+<a href="/files/llvmcilk-results.xlsx">here</a>.</p>
+
+<ol>
+<li>Yes, I know: cache oblivious algorithms aren&rsquo;t <em>supposed</em> to
+require tuning.  In practice, unfortunately, they do.  Maybe not as
+much tuning as their cache aware brethren, but still the require some.
+Even the original MIT code had some tuning code in it, so I&rsquo;m not
+alone in thinking it necessary.</li>
+</ol>
+
+]]></content>
+  </entry>
+  
+</feed>

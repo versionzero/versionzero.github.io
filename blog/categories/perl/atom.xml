@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Perl | Pre-Released Ideas]]></title>
+  <link href="http://versionzero.github.io/blog/categories/perl/atom.xml" rel="self"/>
+  <link href="http://versionzero.github.io/"/>
+  <updated>2015-01-11T23:05:31-08:00</updated>
+  <id>http://versionzero.github.io/</id>
+  <author>
+    <name><![CDATA[Ben Burnett]]></name>
+    <email><![CDATA[yeah@right.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Using Google as a Command-line Spell-checker]]></title>
+    <link href="http://versionzero.github.io/blog/2013/02/16/using-google-as-a-command-line-spell-checker/"/>
+    <updated>2013-02-16T19:08:00-08:00</updated>
+    <id>http://versionzero.github.io/blog/2013/02/16/using-google-as-a-command-line-spell-checker</id>
+    <content type="html"><![CDATA[<p>At the best of times, I can maintain a mediocre level of control of
+the English language.  Unfortunately, this has not translates in to an
+ability to spell.</p>
+
+<p>For most applications, this is fine, there&rsquo;s a reasonable spellchecker
+built in to just about everything.  It&rsquo;s a problem for me when I&rsquo;m at
+the terminal all day though.  It&rsquo;s true, there are plenty of command
+line checkers, but it&rsquo;s rare that any can handle the level of
+misspelling I feed them.  To date, the most capable system of parsing
+my spelling is Google.  But switching to a browser and feeding in a
+word at a time is a tad cumbersome, to say the least.</p>
+
+<!--more-->
+
+
+<p>This was the original impetus for the code.  It&rsquo;s a glorified cURL
+call, but it does the trick.  It also became quite clear that for a
+little extra work, we could detect things like the Urban Dictionary
+(Dirionary) results as part of of the page.</p>
+
+<p>For simplicity, we assume the following phrase will remain stable:</p>
+
+<pre><code>Did you mean to search for:[ ]*([^ ]*).*
+</code></pre>
+
+<p>This can make our code much simpler and easier to follow. It also
+seem, that in the long run, unless many people adopt this method of
+word-recommendation search, Google&rsquo;s only changes will be for
+aesthetic reasons, and considering their overal minimalistic approach
+to data display, we should be able to actually quite easily update
+this in the future, even it if is a major word order change.</p>
+
+<p>Where the above line shows up if Google is <em>guessing</em> (aka &ldquo;recall
+that that word is actually spelt.&rdquo;), the following is likely when the
+&ldquo;optimal&rdquo; match is found, according to its rule-set:</p>
+
+<pre><code>Showing results for[ ]*([^ ]*)
+</code></pre>
+
+<p>Lastly, for now, if we don see anything from Google proper, then we
+may be looking for a piece of slang, so we will use the result of our
+trusty old friend, Urban Dictionary:</p>
+
+<pre><code>Urban Dictionary:[ ]*([^ ]*)
+</code></pre>
+
+<p>The link to the full code can be found bellow, but the critical code
+is here:</p>
+
+<p><div class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="lineno"> 1</span> <span class="k">my</span> <span class="nv">@patterns</span> <span class="o">=</span> <span class="p">(</span>
+<span class="lineno"> 2</span>    <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Did</span> <span class="n">you</span> <span class="n">mean</span> <span class="n">to</span> <span class="n">search</span> <span class="k">for</span><span class="p">:[</span> <span class="p">]</span><span class="sr">&lt;em&gt;</span><span class="p">([</span><span class="o">^</span> <span class="p">]</span><span class="sr">&lt;/em&gt;</span><span class="p">)</span><span class="o">.</span><span class="sr">&lt;em&gt;</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span>
+<span class="lineno"> 3</span>    <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Showing</span> <span class="n">results</span> <span class="k">for</span><span class="p">[</span> <span class="p">]</span><span class="sr">&lt;/em&gt;</span><span class="p">([</span><span class="o">^</span> <span class="p">]</span><span class="sr">&lt;em&gt;</span><span class="p">)</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span>
+<span class="lineno"> 4</span>    <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Urban</span> <span class="n">Dictionary:</span><span class="p">[</span> <span class="p">]</span><span class="sr">&lt;/em&gt;</span><span class="p">([</span><span class="o">^</span> <span class="p">]</span><span class="sr">&lt;em&gt;</span><span class="p">)</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;);</span>
+<span class="lineno"> 5</span> <span class="nb">open</span> <span class="p">(</span><span class="n">OUTPUT</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="o">|</span> <span class="n">tee</span> <span class="nv">$cache_filename</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;);</span>
+<span class="lineno"> 6</span> <span class="k">while</span> <span class="p">(</span><span class="sr">&lt;INPUT&gt;</span><span class="p">)</span> <span class="p">{</span>
+<span class="lineno"> 7</span>   <span class="nb">chomp</span><span class="p">;</span> <span class="sr">s/&amp;lt;[^&gt;]&lt;/em&gt;&gt;/</span> <span class="sr">/g;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+<span class="lineno"> 8</span> 
+<span class="lineno"> 9</span> <span class="sr">&lt;p&gt;</span>  <span class="c1"># Check each of the patterns we defined above:</span>
+<span class="lineno">10</span>   <span class="k">for</span> <span class="k">my</span> <span class="nv">$pattern</span> <span class="p">(</span><span class="nv">@patterns</span><span class="p">)</span> <span class="p">{</span>
+<span class="lineno">11</span>     <span class="k">if</span> <span class="p">(</span><span class="sr">/$pattern/</span><span class="p">)</span> <span class="p">{</span>
+<span class="lineno">12</span>       <span class="nv">$suggestion</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="nv">$1</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;;</span>
+<span class="lineno">13</span>       <span class="k">last</span><span class="p">;</span>
+<span class="lineno">14</span>     <span class="p">}</span>
+<span class="lineno">15</span>   <span class="p">}</span>
+<span class="lineno">16</span> <span class="p">}</span>
+<span class="lineno">17</span> <span class="k">print</span> <span class="n">OUTPUT</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="nv">$suggestion</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;;</span></code></pre></div></p>
+
+<p>Notice we strip all HTML from the document, so it is easier to parse.
+It is odd that web-scrapping can come to this, where it just makes
+more sense to strip all that is <em>structured</em> to work with simpler
+structure.  Is this what people call irony?</p>
+
+<p>The full code can be seen
+<a href="https://raw.github.com/versionzero/dotfiles/master/local/bin/google-suggest">here</a>.</p>
+]]></content>
+  </entry>
+  
+</feed>

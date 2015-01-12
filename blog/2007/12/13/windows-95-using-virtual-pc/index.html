@@ -1,0 +1,410 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Installing Windows 95 Using Virtual PC - Pre-Released Ideas</title>
+  <meta name="author" content="Ben Burnett">
+
+  
+  <meta name="description" content="Requirements Windows 95 CD-ROM or disk image
+Boot disk
+RawWrite Installation Create an ISO of your original Windows 95 CD or get a copy
+from some &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://versionzero.github.io/blog/2007/12/13/windows-95-using-virtual-pc">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/bootstrap.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/bootstrap-theme.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Pre-Released Ideas" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <script src="/javascripts/bootstrap.min.js"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-57348140-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><div class="container">
+  <div class="row">
+    <div class="col-sm-2 hidden-xs">
+      <a href="/">
+        <img src="/images/pensils@2x.png" height="75" width="75"
+             class="pull-right">
+      </a>
+    </div>
+    <div class="col-sm-10">
+      <hgroup>
+        <h1><a href="/">Pre-Released Ideas</a></h1>
+        
+        <h2>An experiment in open-source, live and feedback-based technical writing.</h2>
+        
+      </hgroup>
+    </div>
+  </div>
+</div>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="versionzero.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+  <article class="hentry" role="article">
+    
+  <header>
+    
+      <h1 class="entry-title">Installing Windows 95 Using Virtual PC</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2007-12-13T04:34:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2007</span></span> <span class='time'>4:34 am</span></time>
+        
+
+
+
+
+§ <a href="#disqus_thread"
+     data-disqus-identifier="http://versionzero.github.io">Comments</a>
+
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>Requirements</h3>
+
+<ul>
+<li>Windows 95 CD-ROM or disk image</li>
+<li><a href="http://www.bootdisk.com/bootdisk.htm">Boot disk</a></li>
+<li><a href="http://www.chrysocome.net/rawwrite">RawWrite</a></li>
+</ul>
+
+
+<!--more-->
+
+
+<h3>Installation</h3>
+
+<ul>
+<li>Create an ISO of your original <a
+href="http://ben.versionzero.org/wiki/Burning_Disk_Images_%28i.e._ISO%2C_IMG%2C_etc.%29#In_Windows_95_.2F_98_.2F_ME_.2F_2000_.2F_XP_.2F_Server_2003_.2F_Vista"
+class="external text" rel="nofollow">Windows 95 CD</a> or get a copy
+from some someplace&hellip; Do this because otherwise it takes ages to
+install; it&rsquo;s lightning fast with disk images as compared to real CD
+media.</li>
+<li>Create boot disks by using the Windows 95 Original (boot95a.exe)
+program and writing it to a real floppy drive.  Then, using RawWrite
+create the the disk image (call it, say boot95a.img).  In the end, I
+only needed to use boot95a.img to get the whole thing to boot (so
+don&rsquo;t even bother getting the Windows 95 Version B disk, unless you
+absolutely cannot book with the first one).</li>
+<li>Create a new Virtual Machine in Virtual PC with 64MB of RAM and 2GB
+of disk space (the largest it can handle, I think). (I was
+installing a game and I wanted to make sure there would be plenty of
+room to spare.)</li>
+<li>Start the new Virtual Machine and have Virtual PC capture both the
+Win95.iso and boot95a.img disk, as a CD-ROM and floppy drive,
+respectively.</li>
+<li>Once the new Virtual Machine has started, used <code>FDISK</code> to
+initialize the drive, then <code>FORMAT C: /S</code> to get it ready
+for the OS. After the format is complete, which will be quick, copy
+the following files from the floppy disk to the C: drive:</li>
+</ul>
+
+
+<div class="highlight"><pre><code class="language-batch" data-lang="batch">copy config.sys C:\
+copy autoexec.bat C:\
+copy MSCDEX.EXE C:\
+copy cd<span class="m">1</span>.sys C:\</code></pre></div>
+
+
+<p>This ensures that you will actually have a CD-ROM drive during the
+setup process.  How very convenient, don&rsquo;t you think?. You can even
+copy-n&#8217;-paste the commands from here (that&rsquo;s why I wrote them that
+way, so I can do it in the future), if you are lazy like me.  Then you
+can have Virtual PC type it all in for you by selecting the Edit &gt;
+Paste menu item (or if you’re a keyboard junky, then it&rsquo;s <b>Right
+Alt + V</b> (yeah, not only it is the <i>Alt</i> key, instead of the
+Ctrl key, but it&rsquo;s <i>only</i> the right Alt one, since the left one
+is used as your escape route from the VM).  And don&rsquo;t worry, Windows
+will actually get rid of your autoexec.bat after the installation is
+complete, so you don&rsquo;t have to the leg work yourself.</p>
+
+<ul>
+<li>Now on to the fun part: Installing Window 95. (It’s called SETUP and it is located on the root of the CD-ROM, which should be the R: drive, if you used the same boot disks I did.)</li>
+<li>When prompted for the CD key, if you have it saved in a file, just copy it out of there (remove the &lsquo;-&rsquo; and &lsquo;OEM&rsquo;, if it has it) and use Virtual PC to paste it into the Virtual Machine (fake the key strokes rock!). It&rsquo;s all about being lazy. Conceivably, one could write out all the required key strokes for an install, and simply paste them in to Virtual PC, to automate the installation; but, well, that&rsquo;s just silly, since there are much simpler ways of doing unattended installs.</li>
+<li>When asked about hardware, if you are given a list, don&rsquo;t select any for now, we do that later, once the installation is complete. (There is are drivers on the <i>Virtual Machine Additions</i> ISO provided by Virtual PC.)</li>
+<li>[Optional] During setup it asks to make a start-up disk, if you release boot95a.img and make a copy of it (re-name it to startup95.img, or something similar), you can capture the new disk image, and have the Windows 95 setup create a new start-up disk for you. Very exciting.</li>
+<li>Once the installation is complete, release the floppy disk, because the seek noise on boot will drive you up the wall.  While you’re at it, you can also release the install media, since you won&rsquo;t need it anymore.</li>
+</ul>
+
+
+<h3>Networking</h3>
+
+<p>Because of the way we installed Windows 95, the networking may not be
+configured correctly.  To fix this open the <b>Control Panel</b> and
+double click on the <b>Network</b> icon.  Once there, add click on
+<b>Add&hellip;</b> and double click on <b>Protocol</b> in the component
+list.  From the <b>Manufacturers</b> list, select <b>Microsoft</b> and
+them, from the <b>Network Protocols</b> double click on <b>TCP/IP</b>.
+Finally, click <b>OK</b> and allow Windows to go about it&rsquo;s rebooting
+way.  Reboots always seem to make Windows happy.  If your computer is
+ever frustrated, just reboot it, it&rsquo;ll make it smile.</p>
+
+<h3>Service Pack</h3>
+
+<p>Once you have the networking configured properly, it&rsquo;s time to update
+Windows (as all good Windows users do, right?).  I found, to my
+surprise, that the Windows 95 Service Pack was still available from
+the Microsoft web-site.  Man, I&rsquo;d hate to be the person doing the
+support for that.</p>
+
+<p>You can get SP1 from
+<a href="http://support.microsoft.com/kb/142794">here</a>. Be warned, however,
+that using the old Internet Explorer with all these new fangled
+JavaScript thingamabobs can be a little trying, to say the least.</p>
+
+<h3>Notes</h3>
+
+<p>Now, when you tell Virtual PC to <i>Install or Update Virtual Machine
+Additions</i>, in the words of the venerable comedian Douglas Addams,
+&ldquo;Don&rsquo;t Panic!&rdquo;, because it will just give you a weird error (the
+kernel is missing a handy function to tell Virtual PC if a debugger is
+running, if that means anything to you, great! If not, don&rsquo;t worry
+about, it&rsquo;s not important anyway).  But this error really isn&rsquo;t an
+error; you can ignore it and simple <i>Explore</i> the CD for the
+setup program&hellip; Sadly, it turns out only the DOS applications
+actually work on a Window 95 base install (and they do not play well
+with Windows, so you have to exit to the command line and run
+FSHARE.EXE to get <b>Folder Sharing</b> to work&mdash; and even then,
+it&rsquo;s only in DOS that you can access that drive.  If you try to run
+Windows once it has been loaded, Windows goes all wonky&mdash; try it,
+if you don&rsquo;t believe me) What really strikes me about this, is that
+even the OS/2 additions work&mdash;and who even uses that OS anymore?!
+(says the man installing Windows 95)&mdash;so why doesn&rsquo;t it work on a
+stock Windows 95 install?  Maybe some hints can be gathered from
+<a href="http://blogs.msdn.com/virtual_pc_guy/archive/2007/10/30/installing-dos-additions-under-vpc-2007.aspx">here</a></p>
+
+<h3>Some Software Updates</h3>
+</div>
+
+
+    <footer>
+      <p class="meta">
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Burnett</span></span>
+
+        
+
+
+
+
+<time class='entry-date' datetime='2007-12-13T04:34:00-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2007</span></span> <span class='time'>4:34 am</span></time>
+        
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/dos/'>dos</a>, <a class='category' href='/blog/categories/live/'>live</a>, <a class='category' href='/blog/categories/tech/'>tech</a>, <a class='category' href='/blog/categories/windows/'>windows</a>
+  
+</span>
+
+
+      </p>
+      
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://versionzero.github.io/blog/2007/12/13/windows-95-using-virtual-pc/" data-via="versionnaught" data-counturl="http://versionzero.github.io/blog/2007/12/13/windows-95-using-virtual-pc/" >Tweet</a>
+  
+  
+  
+</div>
+
+      
+      <p class="meta">
+        
+        <a class="basic-alignment left" href="/blog/2007/12/13/internet-explorer-5.0/" title="Previous Post: Internet Explorer 5.0">&laquo; Internet Explorer 5.0</a>
+        
+        
+        <a class="basic-alignment right" href="/blog/2008/08/29/windows-environment-variable-trick/" title="Next Post: Windows Environment Variable Tricks">Windows Environment Variable Tricks &raquo;</a>
+        
+      </p>
+    </footer>
+  </article>
+  
+  <section>
+    <h2>Change History</h2>
+    
+  </section>
+  
+  
+  <section>
+    <h2>Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+  
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/01/11/karabiner-private-xml/">My Karabiner private.xml</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/03/streaming-from-iphone-to-iphone/">Streaming From iPhone to iPhone</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/27/ethical-computing/">Ethical Computing</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/24/logonui.exe-application-error-windows-10/">LogonUI.exe: Application Error, a Quick Fix</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/03/hello-world/">Hello, World!</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/versionzero">@versionzero</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'versionzero',
+            count: 6,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Ben Burnett -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'prereleasedideas';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://versionzero.github.io/blog/2007/12/13/windows-95-using-virtual-pc/';
+        var disqus_url = 'http://versionzero.github.io/blog/2007/12/13/windows-95-using-virtual-pc/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

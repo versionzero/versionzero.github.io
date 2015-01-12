@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Lenovo | Pre-Released Ideas]]></title>
+  <link href="http://versionzero.github.io/blog/categories/lenovo/atom.xml" rel="self"/>
+  <link href="http://versionzero.github.io/"/>
+  <updated>2015-01-11T23:05:31-08:00</updated>
+  <id>http://versionzero.github.io/</id>
+  <author>
+    <name><![CDATA[Ben Burnett]]></name>
+    <email><![CDATA[yeah@right.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[LogonUI.exe: Application Error, a Quick Fix]]></title>
+    <link href="http://versionzero.github.io/blog/2014/12/24/logonui.exe-application-error-windows-10/"/>
+    <updated>2014-12-24T01:05:02-08:00</updated>
+    <id>http://versionzero.github.io/blog/2014/12/24/logonui.exe-application-error-windows-10</id>
+    <content type="html"><![CDATA[<p>The sentiment, &ldquo;I get the LogonUI.exe error after the Windows 10 TP
+setup,&rdquo; seems to be common. Fortunately, the solution is very straight
+forward if you are on a Lenovo machine.</p>
+
+<!--more-->
+
+
+<p>Here are the steps that worked for me:</p>
+
+<ol>
+<li>Start Windows 10 in Safe-Mode. To do this, press and hold the left
+shift key (the one you can use to turn caps lock on)</li>
+<li>Once you have booted Windows in to Safe Mode, it is time to apply
+the fix:
+
+<ul>
+<li>NOTE: The Uninstall tools will not work in Safe Mode. This is
+because the Installer Service is not running, nor can it be
+started in Safe Mode</li>
+</ul>
+</li>
+<li>We use a very simple fix, in that we do nothing more than move the
+offending applications out of the way, so they will not be found by
+any of the startup processes. On a Lenovo machine, the offending
+application&mdash;the fingerprint authentication tool&mdash;resides in
+&ldquo;C:\Program Files\Lenovo&rdquo;. Remedying the problem is a simple as moving
+the Lenovo directory to the desktop and rebooting</li>
+<li>I have yet to replace the Lenovo finger-print application with an
+equivalent package, but there seems to be some evidence to suggest
+that the Windows 10 biometrics tools can be used on their own</li>
+</ol>
+
+]]></content>
+  </entry>
+  
+</feed>

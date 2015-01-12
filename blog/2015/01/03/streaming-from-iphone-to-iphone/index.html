@@ -1,0 +1,352 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Streaming From iPhone to iPhone - Pre-Released Ideas</title>
+  <meta name="author" content="Ben Burnett">
+
+  
+  <meta name="description" content="Part of this project includes code, not just writing. Obviously, the
+code to the site is available, but what follows is code that is
+independent of &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://versionzero.github.io/blog/2015/01/03/streaming-from-iphone-to-iphone">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/bootstrap.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/bootstrap-theme.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Pre-Released Ideas" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <script src="/javascripts/bootstrap.min.js"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-57348140-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><div class="container">
+  <div class="row">
+    <div class="col-sm-2 hidden-xs">
+      <a href="/">
+        <img src="/images/pensils@2x.png" height="75" width="75"
+             class="pull-right">
+      </a>
+    </div>
+    <div class="col-sm-10">
+      <hgroup>
+        <h1><a href="/">Pre-Released Ideas</a></h1>
+        
+        <h2>An experiment in open-source, live and feedback-based technical writing.</h2>
+        
+      </hgroup>
+    </div>
+  </div>
+</div>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="versionzero.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+  <article class="hentry" role="article">
+    
+  <header>
+    
+      <h1 class="entry-title">Streaming From iPhone to iPhone</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-01-03T07:11:00-08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2015</span></span> <span class='time'>7:11 am</span></time>
+        
+
+
+
+
+§ <a href="#disqus_thread"
+     data-disqus-identifier="http://versionzero.github.io">Comments</a>
+
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Part of this project includes code, not just writing. Obviously, the
+code to the site is available, but what follows is code that is
+independent of the site, in so far as it doesn&rsquo;t help run it. The code
+itself is hosted on another GitHub account, for my own reasons, but
+the writeups will all be here.</p>
+
+<!--more-->
+
+
+<h3>Streaming to iOS Devices</h3>
+
+<p>The first question that comes to mind is why? Why would you want to
+stream to an iOS device rather than just from it?</p>
+
+<p>The answer reveals how fortunate (spoiled) I&rsquo;ve been over the past few
+years: I&rsquo;ve always been a technology enthusiast and I have always been
+one to try to keep somewhat up-to-date on the latest gadgets. In some
+respects, this has meloed over the years, but it hasn&rsquo;t stopped me
+from buying a new previous generation iPhone every time a new one is
+released. In this case, it means I am currently an owner of a 5s and
+4s, as I have not gotten rid of the 4s yet. This is all relevant
+because it lead me to this question: what can I do with an old iPhone
+that I might not be able to do with a computer. It turns out, there is
+a lot you can use an old iPhone for, much of which is not relevant,
+except streaming.</p>
+
+<p>I used my iPhone 4s as a remote and as a Netflix source to stream to
+my TVs. The novelty of this quickly wore off, so I started looking
+around for other uses. This is when I realized I&rsquo;d like to install it
+in my car and stream to it, from another source. I have an iOS dock in
+my car. Not one that connects to an existing stereo or cables, but is
+instead a stereo designed to hold an iOS device internally (or a USB
+drive, etc.). The idea for device reuse or specialized use would be to
+allow to stream from one device to another. In my case, one iPhone to
+another. This way, the music, etc. is on one device, but the output is
+on another. This would make updating music and listening to it on the
+car iPhone trivial, as the device would never need to have updated
+manually, or if it did, it wouldn&rsquo;t be critical that be sync&rsquo;d every
+night or even week. (Yes, a &ldquo;first world problem&rdquo; (FWP), but hey, most
+technology fixes FWP these days&mdash;doesn&rsquo;t it? Not many Pinterest users
+bragging about the bag of support rice they had dropped on their
+head. Or maybe there are.)</p>
+
+<h3>How to Stream</h3>
+
+<p>Since we are writing an open source project, we can use a bunch of
+open source libraries and tools. For the base streaming part, I&rsquo;ve
+chosen to use <a href="https://github.com/abrasive/shairport">shairport</a>;
+unfortunately, it does not support iOS out of the box, so we need to
+make some modifications&mdash;which is actually a good thing: otherwise,
+we&rsquo;d be done with the writing, right about now.</p>
+
+<p><em>In progress</em></p>
+</div>
+
+
+    <footer>
+      <p class="meta">
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Burnett</span></span>
+
+        
+
+
+
+
+<time class='entry-date' datetime='2015-01-03T07:11:00-08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2015</span></span> <span class='time'>7:11 am</span></time>
+        
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/darwin/'>darwin</a>, <a class='category' href='/blog/categories/live/'>live</a>, <a class='category' href='/blog/categories/osx/'>osx</a>, <a class='category' href='/blog/categories/tech/'>tech</a>
+  
+</span>
+
+
+      </p>
+      
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://versionzero.github.io/blog/2015/01/03/streaming-from-iphone-to-iphone/" data-via="versionnaught" data-counturl="http://versionzero.github.io/blog/2015/01/03/streaming-from-iphone-to-iphone/" >Tweet</a>
+  
+  
+  
+</div>
+
+      
+      <p class="meta">
+        
+        <a class="basic-alignment left" href="/blog/2014/12/27/ethical-computing/" title="Previous Post: Ethical Computing">&laquo; Ethical Computing</a>
+        
+        
+        <a class="basic-alignment right" href="/blog/2015/01/11/karabiner-private-xml/" title="Next Post: My Karabiner private.xml">My Karabiner private.xml &raquo;</a>
+        
+      </p>
+    </footer>
+  </article>
+  
+  <section>
+    <h2>Change History</h2>
+    <ul>
+      <li>Jan 03, 2015</li>
+      
+      
+      <!-- li>Jan 03, 2015</li f-->
+    </ul>
+  </section>
+  
+  
+  <section>
+    <h2>Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+  
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/01/11/karabiner-private-xml/">My Karabiner private.xml</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/03/streaming-from-iphone-to-iphone/">Streaming From iPhone to iPhone</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/27/ethical-computing/">Ethical Computing</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/24/logonui.exe-application-error-windows-10/">LogonUI.exe: Application Error, a Quick Fix</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/03/hello-world/">Hello, World!</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/versionzero">@versionzero</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'versionzero',
+            count: 6,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Ben Burnett -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'prereleasedideas';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://versionzero.github.io/blog/2015/01/03/streaming-from-iphone-to-iphone/';
+        var disqus_url = 'http://versionzero.github.io/blog/2015/01/03/streaming-from-iphone-to-iphone/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

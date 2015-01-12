@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Windows | Pre-Released Ideas]]></title>
+  <link href="http://versionzero.github.io/blog/categories/windows/atom.xml" rel="self"/>
+  <link href="http://versionzero.github.io/"/>
+  <updated>2015-01-11T23:05:31-08:00</updated>
+  <id>http://versionzero.github.io/</id>
+  <author>
+    <name><![CDATA[Ben Burnett]]></name>
+    <email><![CDATA[yeah@right.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[LogonUI.exe: Application Error, a Quick Fix]]></title>
+    <link href="http://versionzero.github.io/blog/2014/12/24/logonui.exe-application-error-windows-10/"/>
+    <updated>2014-12-24T01:05:02-08:00</updated>
+    <id>http://versionzero.github.io/blog/2014/12/24/logonui.exe-application-error-windows-10</id>
+    <content type="html"><![CDATA[<p>The sentiment, &ldquo;I get the LogonUI.exe error after the Windows 10 TP
+setup,&rdquo; seems to be common. Fortunately, the solution is very straight
+forward if you are on a Lenovo machine.</p>
+
+<!--more-->
+
+
+<p>Here are the steps that worked for me:</p>
+
+<ol>
+<li>Start Windows 10 in Safe-Mode. To do this, press and hold the left
+shift key (the one you can use to turn caps lock on)</li>
+<li>Once you have booted Windows in to Safe Mode, it is time to apply
+the fix:
+
+<ul>
+<li>NOTE: The Uninstall tools will not work in Safe Mode. This is
+because the Installer Service is not running, nor can it be
+started in Safe Mode</li>
+</ul>
+</li>
+<li>We use a very simple fix, in that we do nothing more than move the
+offending applications out of the way, so they will not be found by
+any of the startup processes. On a Lenovo machine, the offending
+application&mdash;the fingerprint authentication tool&mdash;resides in
+&ldquo;C:\Program Files\Lenovo&rdquo;. Remedying the problem is a simple as moving
+the Lenovo directory to the desktop and rebooting</li>
+<li>I have yet to replace the Lenovo finger-print application with an
+equivalent package, but there seems to be some evidence to suggest
+that the Windows 10 biometrics tools can be used on their own</li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Windows Environment Variable Tricks]]></title>
+    <link href="http://versionzero.github.io/blog/2008/08/29/windows-environment-variable-trick/"/>
+    <updated>2008-08-29T18:10:00-07:00</updated>
+    <id>http://versionzero.github.io/blog/2008/08/29/windows-environment-variable-trick</id>
+    <content type="html"><![CDATA[<h3>Arrays</h3>
+
+<p>Although not explicitly supported, it is possible to make, let&rsquo;s call
+them pseudo-arrays, in the environment with no fancy string parsing or
+anything sloppy like that. It involves some clever uses of call
+command to evaluate and extract values from the pseudo-arrays and well
+positioned % signs to demarcate which environment variables we want
+evaluated and when.</p>
+
+<!--more-->
+
+
+<p>Lets look at a quick example to see the basic mechanism. Assignment
+would be done as follows:</p>
+
+<p><div class="highlight"><pre><code class="language-batch" data-lang="batch"><span class="k">set</span> <span class="nv">count</span><span class="o">=</span><span class="m">1</span>
+<span class="k">set</span> <span class="nv">var%count%</span><span class="o">=</span><span class="m">42</span></code></pre></div></p>
+
+<p>There are two method to extract the value, while at the command prompt
+use the %var%count%% form to extract the value:</p>
+
+<p><div class="highlight"><pre><code class="language-batch" data-lang="batch"><span class="k">call</span> <span class="k">echo</span> <span class="nv">%var%</span>count%%</code></pre></div></p>
+
+<p>On the other hand, while within a batch file use the %%var%count%%%
+form to extract the value:</p>
+
+<p>
+call echo %%var%count%%%</p>
+
+<p>Note the extra strafing % signs. Both of the above expressions will
+display the number 42, as expected; or maybe it&rsquo;s is surprising, it
+all depends on your expectations and what you might consider
+interesting and cool. Sadly, I do consider this cool; insofar as it
+works on a straight out of the box Windows installation.  The
+technique may look a little hairy, but it&rsquo;s quite useful. The above
+will print the contents of var1 (i.e. 42) as we explained. We could
+also replace the echo command with a set if we wanted to set some
+other variable to the value in var1. Meaning the following is a valid
+assignment at the command line:</p>
+
+<p><div class="highlight"><pre><code class="language-batch" data-lang="batch"><span class="k">call</span> <span class="k">set</span> <span class="nv">x</span><span class="o">=</span><span class="nv">%var%</span>count%%</code></pre></div></p>
+
+<p>Where:</p>
+
+<p><div class="highlight"><pre><code class="language-batch" data-lang="batch"><span class="k">echo</span> <span class="nv">%x%</span></code></pre></div></p>
+
+<p>Would print the number 42, as we would expect. We can even carry out
+arithmetic operations on these pseudo-arrays&#8217; values. For instance,
+the following would subtract 2 from the value of varN:</p>
+
+<p><div class="highlight"><pre><code class="language-batch" data-lang="batch"><span class="k">call</span> <span class="k">set</span> <span class="n">/a</span> x<span class="o">=</span><span class="nv">%var%</span>N%%<span class="m">-2</span> <span class="p">&gt;</span><span class="n">nul</span></code></pre></div></p>
+
+<p>Note that here we need to redirect the output to the nul port,
+otherwise the result arithmetic operation would be printed to the
+screen. Either way, this technique means that some rather advanced
+operations can be done over a range of values, with little effort.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Installing Windows 95 Using Virtual PC]]></title>
+    <link href="http://versionzero.github.io/blog/2007/12/13/windows-95-using-virtual-pc/"/>
+    <updated>2007-12-13T04:34:00-08:00</updated>
+    <id>http://versionzero.github.io/blog/2007/12/13/windows-95-using-virtual-pc</id>
+    <content type="html"><![CDATA[<h3>Requirements</h3>
+
+<ul>
+<li>Windows 95 CD-ROM or disk image</li>
+<li><a href="http://www.bootdisk.com/bootdisk.htm">Boot disk</a></li>
+<li><a href="http://www.chrysocome.net/rawwrite">RawWrite</a></li>
+</ul>
+
+
+<!--more-->
+
+
+<h3>Installation</h3>
+
+<ul>
+<li>Create an ISO of your original <a
+href="http://ben.versionzero.org/wiki/Burning_Disk_Images_%28i.e._ISO%2C_IMG%2C_etc.%29#In_Windows_95_.2F_98_.2F_ME_.2F_2000_.2F_XP_.2F_Server_2003_.2F_Vista"
+class="external text" rel="nofollow">Windows 95 CD</a> or get a copy
+from some someplace&hellip; Do this because otherwise it takes ages to
+install; it&rsquo;s lightning fast with disk images as compared to real CD
+media.</li>
+<li>Create boot disks by using the Windows 95 Original (boot95a.exe)
+program and writing it to a real floppy drive.  Then, using RawWrite
+create the the disk image (call it, say boot95a.img).  In the end, I
+only needed to use boot95a.img to get the whole thing to boot (so
+don&rsquo;t even bother getting the Windows 95 Version B disk, unless you
+absolutely cannot book with the first one).</li>
+<li>Create a new Virtual Machine in Virtual PC with 64MB of RAM and 2GB
+of disk space (the largest it can handle, I think). (I was
+installing a game and I wanted to make sure there would be plenty of
+room to spare.)</li>
+<li>Start the new Virtual Machine and have Virtual PC capture both the
+Win95.iso and boot95a.img disk, as a CD-ROM and floppy drive,
+respectively.</li>
+<li>Once the new Virtual Machine has started, used <code>FDISK</code> to
+initialize the drive, then <code>FORMAT C: /S</code> to get it ready
+for the OS. After the format is complete, which will be quick, copy
+the following files from the floppy disk to the C: drive:</li>
+</ul>
+
+
+<p><div class="highlight"><pre><code class="language-batch" data-lang="batch">copy config.sys C:\
+copy autoexec.bat C:\
+copy MSCDEX.EXE C:\
+copy cd<span class="m">1</span>.sys C:\</code></pre></div></p>
+
+<p>This ensures that you will actually have a CD-ROM drive during the
+setup process.  How very convenient, don&rsquo;t you think?. You can even
+copy-n&#8217;-paste the commands from here (that&rsquo;s why I wrote them that
+way, so I can do it in the future), if you are lazy like me.  Then you
+can have Virtual PC type it all in for you by selecting the Edit &gt;
+Paste menu item (or if you’re a keyboard junky, then it&rsquo;s <b>Right
+Alt + V</b> (yeah, not only it is the <i>Alt</i> key, instead of the
+Ctrl key, but it&rsquo;s <i>only</i> the right Alt one, since the left one
+is used as your escape route from the VM).  And don&rsquo;t worry, Windows
+will actually get rid of your autoexec.bat after the installation is
+complete, so you don&rsquo;t have to the leg work yourself.</p>
+
+<ul>
+<li>Now on to the fun part: Installing Window 95. (It’s called SETUP and it is located on the root of the CD-ROM, which should be the R: drive, if you used the same boot disks I did.)</li>
+<li>When prompted for the CD key, if you have it saved in a file, just copy it out of there (remove the &lsquo;-&rsquo; and &lsquo;OEM&rsquo;, if it has it) and use Virtual PC to paste it into the Virtual Machine (fake the key strokes rock!). It&rsquo;s all about being lazy. Conceivably, one could write out all the required key strokes for an install, and simply paste them in to Virtual PC, to automate the installation; but, well, that&rsquo;s just silly, since there are much simpler ways of doing unattended installs.</li>
+<li>When asked about hardware, if you are given a list, don&rsquo;t select any for now, we do that later, once the installation is complete. (There is are drivers on the <i>Virtual Machine Additions</i> ISO provided by Virtual PC.)</li>
+<li>[Optional] During setup it asks to make a start-up disk, if you release boot95a.img and make a copy of it (re-name it to startup95.img, or something similar), you can capture the new disk image, and have the Windows 95 setup create a new start-up disk for you. Very exciting.</li>
+<li>Once the installation is complete, release the floppy disk, because the seek noise on boot will drive you up the wall.  While you’re at it, you can also release the install media, since you won&rsquo;t need it anymore.</li>
+</ul>
+
+
+<h3>Networking</h3>
+
+<p>Because of the way we installed Windows 95, the networking may not be
+configured correctly.  To fix this open the <b>Control Panel</b> and
+double click on the <b>Network</b> icon.  Once there, add click on
+<b>Add&hellip;</b> and double click on <b>Protocol</b> in the component
+list.  From the <b>Manufacturers</b> list, select <b>Microsoft</b> and
+them, from the <b>Network Protocols</b> double click on <b>TCP/IP</b>.
+Finally, click <b>OK</b> and allow Windows to go about it&rsquo;s rebooting
+way.  Reboots always seem to make Windows happy.  If your computer is
+ever frustrated, just reboot it, it&rsquo;ll make it smile.</p>
+
+<h3>Service Pack</h3>
+
+<p>Once you have the networking configured properly, it&rsquo;s time to update
+Windows (as all good Windows users do, right?).  I found, to my
+surprise, that the Windows 95 Service Pack was still available from
+the Microsoft web-site.  Man, I&rsquo;d hate to be the person doing the
+support for that.</p>
+
+<p>You can get SP1 from
+<a href="http://support.microsoft.com/kb/142794">here</a>. Be warned, however,
+that using the old Internet Explorer with all these new fangled
+JavaScript thingamabobs can be a little trying, to say the least.</p>
+
+<h3>Notes</h3>
+
+<p>Now, when you tell Virtual PC to <i>Install or Update Virtual Machine
+Additions</i>, in the words of the venerable comedian Douglas Addams,
+&ldquo;Don&rsquo;t Panic!&rdquo;, because it will just give you a weird error (the
+kernel is missing a handy function to tell Virtual PC if a debugger is
+running, if that means anything to you, great! If not, don&rsquo;t worry
+about, it&rsquo;s not important anyway).  But this error really isn&rsquo;t an
+error; you can ignore it and simple <i>Explore</i> the CD for the
+setup program&hellip; Sadly, it turns out only the DOS applications
+actually work on a Window 95 base install (and they do not play well
+with Windows, so you have to exit to the command line and run
+FSHARE.EXE to get <b>Folder Sharing</b> to work&mdash; and even then,
+it&rsquo;s only in DOS that you can access that drive.  If you try to run
+Windows once it has been loaded, Windows goes all wonky&mdash; try it,
+if you don&rsquo;t believe me) What really strikes me about this, is that
+even the OS/2 additions work&mdash;and who even uses that OS anymore?!
+(says the man installing Windows 95)&mdash;so why doesn&rsquo;t it work on a
+stock Windows 95 install?  Maybe some hints can be gathered from
+<a href="http://blogs.msdn.com/virtual_pc_guy/archive/2007/10/30/installing-dos-additions-under-vpc-2007.aspx">here</a></p>
+
+<h3>Some Software Updates</h3>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Internet Explorer 5.0]]></title>
+    <link href="http://versionzero.github.io/blog/2007/12/13/internet-explorer-5.0/"/>
+    <updated>2007-12-13T04:34:00-08:00</updated>
+    <id>http://versionzero.github.io/blog/2007/12/13/internet-explorer-5.0</id>
+    <content type="html"><![CDATA[<p>This is the final release version of IE5 released on March
+18th. Although this version has some new features as well as some
+enhancements to some old ones, it is certainly one of the better
+browsers in the world so far. You may want to keep in mind that this
+program can cause noticeable speed decreases in system performance
+after installation. Gladly, you can uninstall this software and be
+left with any previous versions in tact the way you may have left
+them. (Unfortunately, the only copies I could find are Cintek branded
+ones.)</p>
+
+<!--more-->
+
+
+<h3>Internet Explorer 5.0 for 32-bit Windows Operating Systems</h3>
+
+<ul>
+<li>Minimum Requirements: 486DX/66MHz or higher, Windows 95/98, 12MB RAM,
+56MB disk space.</li>
+<li>Download Size: 37MB</li>
+</ul>
+
+
+<h3>Internet Explorer 5.0 for 16-bit Windows Operating Systems</h3>
+
+<ul>
+<li>Minimum Requirements: 486DX or higher, Windows 3.1 or NT 3.5, 12MB
+RAM for browser only installation (16MB RAM if using the Java
+VM). 30MB disk space to run setup.</li>
+<li>Download Size: 9.4MB</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Installing Windows NT 4.0 Workstation Using Virtual PC]]></title>
+    <link href="http://versionzero.github.io/blog/2007/09/23/windows-nt-4.0-workstation-using-virtual-pc/"/>
+    <updated>2007-09-23T04:34:00-07:00</updated>
+    <id>http://versionzero.github.io/blog/2007/09/23/windows-nt-4.0-workstation-using-virtual-pc</id>
+    <content type="html"><![CDATA[<h3>Introduction</h3>
+
+<p>I assume a lot about you&rsquo;re background in these tutorials. They are
+primarily for myself, because I have a tendency to forget things more
+often than not, so don&rsquo;t be too distressed and come calling on me if I
+don&rsquo;t hold your hand through the whole thing. (Sorry, it&rsquo;s 12:04am,
+and it&rsquo;s been a long day.)</p>
+
+<h3>Requirements</h3>
+
+<ul>
+<li>Windows NT Workstation CD-ROM or disk image</li>
+</ul>
+
+
+<!--more-->
+
+
+<h3>Installation</h3>
+
+<ul>
+<li>Create an ISO of your original <a
+href="http://ben.versionzero.org/wiki/Burning_Disk_Images_%28i.e._ISO%2C_IMG%2C_etc.%29#In_Windows_95_.2F_98_.2F_ME_.2F_2000_.2F_XP_.2F_Server_2003_.2F_Vista"
+class="external text" rel="nofollow">Windows 95 CD</a> or get a copy
+from some someplace&hellip; Do this because otherwise it takes ages to
+install; it&rsquo;s lightning fast with disk images as compared to real CD
+media.</li>
+<li>Create a new Virtual Machine in Virtual PC with 64MB of RAM and 4GB
+of disk space, or change all that to your requirements.</li>
+<li>Start the new Virtual Machine and have Virtual PC capture the
+WinNT.iso (or whatever you called it) as a CD-ROM.</li>
+<li>Once the new Virtual Machine has started, use your common since and
+format the drive using NTFS. After the format is complete, which
+will be quick, you can sit back and let the setup do its thing.</li>
+<li>On the first boot, it will look like nothing is
+happening&hellip; <i>forever</i>. But it is actually doing something, so
+just be patient.  Even though you selected NTFS as your file system,
+it first must be formatted as FAT and then converted.  I&rsquo;m sure
+there is some weird historical reason for this, but I don&rsquo;t know it
+of hand.  My best guess is that they had a very quick and easy way
+to format a FAT partition (so the actual install phase was fast),
+put some run once utilities on it, and then you boot for the first
+time, it blows the whole FAT partition away and puts an NTFS one in
+its place.</li>
+<li>When prompted for the CD key, if you have it saved in a file, just
+copy it out of there (remove the &lsquo;-&rsquo; and &lsquo;OEM&rsquo;, if it has it) and
+use Virtual PC to paste it into the Virtual Machine (fake the key
+strokes rock!). It&rsquo;s all about being lazy. Unfortunately, unlike
+other OS installers, the NT one is not smart enough to skip from one
+edit control to the next, once the edit control is full.  This means
+that instead of being able to just paste the whole thing, like you
+can for Windows 95, you must paste each part individually, and then
+TAB to the next edit control manually.  It&rsquo;s a small irritation, but
+if you have you speakers turned up, you&rsquo;ll know you entered too many
+characters in on field, because Windows will beep repeatedly at
+you. (My ears leant that the hard way.)</li>
+<li>When asked about networking, just say you are on a <b>Wired to the
+network</b> and let NT detect the network adapter for you, by
+clicking on the search button.  The <b>TCP/IP Protocol</b> is
+enabled by default.  For most people this is sufficient, but you can
+also select <b>NetBEUI</b> for novelty&rsquo;s sake.</li>
+<li>The next step allows you to install new services, I added <b>Simple
+TCP/IP Services</b> and more importantly&mdash;for my network,
+anyway&mdash;<b>Microsoft TCP/IP Printing</b>.</li>
+<li>(<em>Optional</em>) During setup it asks to make a start-up disk, if you
+copy <code>D:\SUPPORT\HQTOOL\NTHQ</code> and re-name it to
+startupNT.img, or something similar, you can capture the new disk
+image, and have the Windows NT setup create a new start-up disk for
+you. How ever so clever.</li>
+<li>Once the installation is complete, release the floppy disk, because
+otherwise you&rsquo;ll find yourself in recovery land.  Also, I suggest
+disabling the auto detection of the floppy disk, as the seek noise
+on boot will drive you up the wall. (Maybe not the first time, but
+it will eventually get to you, I promise.) While you’re at it, you
+can also release the install media, since you won&rsquo;t need it anymore.</li>
+<li>It actually turns out that it&rsquo;s just boots in general that take
+forever, just be patient.</li>
+</ul>
+
+
+<h3>Networking</h3>
+
+<p>Because of the way we installed Windows 95, the networking may not be
+configured correctly.  To fix this open the <b>Control Panel</b> and
+double click on the <b>Network</b> icon.  Once there, add click on
+<b>Add&hellip;</b> and double click on <b>Protocol</b> in the component
+list.  From the <b>Manufacturers</b> list, select <b>Microsoft</b> and
+them, from the <b>Network Protocols</b> double click on <b>TCP/IP</b>.
+Finally, click <b>OK</b> and allow Windows to go about it&rsquo;s rebooting
+way.  Reboots always seem to make Windows happy.  If your computer is
+ever frustrated, just reboot it, it&rsquo;ll make it smile.</p>
+
+<h3>Service Pack</h3>
+
+<p>Once you have the networking configured properly, it&rsquo;s time to update
+Windows (as all good Windows users do, right?).  I found, to my
+surprise, that the Windows 95 Service Pack was still available from
+the Microsoft web-site.  Man, I&rsquo;d hate to be the person doing the
+support for that.</p>
+
+<p>You can get SP6a from
+<a href="http://support.microsoft.com/kb/152734">here</a>. Be warned, however,
+that you will have to do this on your host machine and transfer the
+files over the network, as the version of IE that ships with NT (on my
+old version, anyway— packing a full SP1, oh yeah!) won&rsquo;t even open
+www.google.com.</p>
+
+<h3>Notes</h3>
+
+<ul>
+<li><a href="http://www.cintek.com/download/ie5.htm">Internet Explorer 5.0</a></li>
+<li><a href="http://msdn2.microsoft.com/en-us/netframework/aa569264.aspx">Microsoft .NET Framework 1.1 Redistributable</a></li>
+</ul>
+
+
+<p>Now, when you tell Virtual PC to Install or Update Virtual Machine
+Additions, in the words of the venerable comedian Douglas Addams,
+&ldquo;Don&rsquo;t Panic!&rdquo;, because it will just give you a weird error (the
+kernel is missing a handy function to tell Virtual PC if a debugger is
+running, if that means anything to you, great! If not, don&rsquo;t worry
+about, it&rsquo;s not important anyway). But this error really isn&rsquo;t an
+error; you can ignore it and simple Explore the CD for the setup
+program&hellip; Sadly, it turns out only the DOS applications actually work
+on a Window 95 base install (and they do not play well with Windows,
+so you have to exit to the command line and run FSHARE.EXE to get
+Folder Sharing to work— and even then, it&rsquo;s only in DOS that you can
+access that drive. If you try to run Windows once it has been loaded,
+Windows goes all wonky— try it, if you don&rsquo;t believe me.) What really
+strikes me about this is that even the OS/2 additions work—and who
+even uses that OS anymore?! (Says the man installing Windows 95)—so
+why doesn&rsquo;t it work on a stock Windows 95 install?</p>
+
+<h3>Some Software Updates</h3>
+]]></content>
+  </entry>
+  
+</feed>

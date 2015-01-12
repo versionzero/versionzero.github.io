@@ -1,0 +1,439 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Towards a Working Raspberry Pi In-car Computer - Pre-Released Ideas</title>
+  <meta name="author" content="Ben Burnett">
+
+  
+  <meta name="description" content="Ever since I purchased my latest vehicle, I&rsquo;ve been working on a
+little side project to interface directly with the vehicle&rsquo;s on-board &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://versionzero.github.io/blog/2013/02/24/towards-a-working-rpi-in-car-computer">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/bootstrap.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/bootstrap-theme.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Pre-Released Ideas" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <script src="/javascripts/bootstrap.min.js"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-57348140-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><div class="container">
+  <div class="row">
+    <div class="col-sm-2 hidden-xs">
+      <a href="/">
+        <img src="/images/pensils@2x.png" height="75" width="75"
+             class="pull-right">
+      </a>
+    </div>
+    <div class="col-sm-10">
+      <hgroup>
+        <h1><a href="/">Pre-Released Ideas</a></h1>
+        
+        <h2>An experiment in open-source, live and feedback-based technical writing.</h2>
+        
+      </hgroup>
+    </div>
+  </div>
+</div>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="versionzero.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+  <article class="hentry" role="article">
+    
+  <header>
+    
+      <h1 class="entry-title">Towards a Working Raspberry Pi In-car Computer</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2013-02-24T19:52:00-08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>24</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>7:52 pm</span></time>
+        
+
+
+
+
+§ <a href="#disqus_thread"
+     data-disqus-identifier="http://versionzero.github.io">Comments</a>
+
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Ever since I purchased my latest vehicle, I&rsquo;ve been working on a
+little side project to interface directly with the vehicle&rsquo;s on-board
+computer.</p>
+
+<p>The task itself is pretty straight forward: buy device capable of
+plugging in to the vehicle&rsquo;s ODB2 port, and run some free or
+inexpensive Android app to gather the information.</p>
+
+<p>Unfortunately, the above process requires a great deal of user
+intervention.  First, you must always plug and unplug the ODB2 device.
+Second, you must either have an Android device on your person or in
+the vehicle capable of running the required software or a computer
+with a variety of command-line tools installed.  The latter is
+impractical, and the former is error prone (I&rsquo;ll forget to start the
+app, take the readings, etc.) and tedious (The data must later be
+extracted from the app manually, or a web-service must be made
+available to push the data to&ndash; which also requires a data plan, if
+the car is not always in the proximity of a wifi access point).</p>
+
+<p>Raspberry Pi to the rescue.</p>
+
+<!--more-->
+
+
+<p>The <a href="http://www.raspberrypi.org">Raspberry Pi</a> is a small, inexpensive
+low-power computing machine.  It was originally developed with
+teaching in mind, but sparked an enormous hobby market.  The Raspberry
+Pi, or raspi for short, is available in two models: Model A is $25 the
+Model B is $35. The differences between the models is nominal: the
+more expensive one has more USB ports, more RAM and an Ethernet port.
+As a developer, the Model B is preferable, since it provides easy
+extension through USB and trivial network access via ethernet, not to
+mention more room to write sloppier prototype code in the roomy 512MB
+main memory.  The Model A would be best suited to production or
+permanent projects, post development.  (Not true in all cases: having
+network access can be critical for some applications&ndash; though a USB
+wireless dongle may mediate this issue.)</p>
+
+<p>I purchased two of the $35 Model Bs, for a separate project, but
+quickly found that they would be a good fit for a variety of computing
+projects.  One of these projects ended up being the computer for my
+vehicle.</p>
+
+<p>The original intention of car computer was to keep track of details
+that were important to me, but slightly time consuming and tedious.
+One simple motivating example was tracking fuel economy.  It&rsquo;s a
+simple calculation to make, record and compare to previous trips.  But
+why bother doing this work by hand if it will eventually end up in a
+computer, if the computer itself can gather and tabulate the data
+automatically.  It&rsquo;s hardly an earth shattering improvement, but led
+to further ideas.  For instance: it would be great to know <em>where</em>,
+<em>when</em> and <em>why</em> the vehicle experiences the worst fuel economy.  By
+taking additional data samples, like location, speed, temperature,
+time, and a variety of engine performance metrics, a very clear
+picture of how a vehicle performs will emerge.</p>
+
+<p>Towards these ends, I&rsquo;ve been configuring a raspi to read from a
+Bluetooth ODB2 adapter and stash the information until it can be
+transferred to my home network for processing.</p>
+
+<p>The idea is simple: poll the ODB2 adapter periodically for all data it
+can return.  Simultaneously poll a GPS unit and stash the correlated
+data locally on the raspi device.  If and when my home network is
+within range, join the wireless network and transfer the collected
+data for processing.</p>
+
+<p><em>more on the way</em></p>
+
+<h2>Configuration</h2>
+
+<h3>USB Hub Configuration</h3>
+
+<p>The first problem I ran in to was that the cheap USB Bluetooth dongle
+I purchased was not well received by my raspi.  Fortunately, like many
+things, I was not the only one who had this issue.  A quick web-search
+away turned up the <a href="http://raspberrypi.stackexchange.com/questions/1886/what-kernel-parameters-are-available-for-fixing-usb-problems">solution</a>:
+the USB hub&rsquo;s speed had to be turned down to the USB 1.1 standard, as
+the 2.0 standard was known to no play well with some cheap devices.</p>
+
+<p>The fix was simple, once I found it, and only involved changing a few
+boot variables the kernel uses to initialize hardware on boot.  In
+particular, I changed:</p>
+
+<ul>
+<li><code>dwc_otg.speed</code>: 1 will limit USB speed to full speed 12Mbps (USB 1.1).</li>
+<li><code>dwc_otg.microframe_schedule</code>: 1 (default now) This should fix the
+error when too many periodic endpoints are present.</li>
+</ul>
+
+
+<h3>Bluetooth Configuration</h3>
+
+<p>Having no documentation on the ODB2 sensor I purchased, I used the
+<code>sdptool</code> to tell me a little about the device.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>sudo sdptool records 00:19:5D:27:12:6E
+...
+Service Name: SPP Dev
+Service RecHandle: 0x10002
+Service Class ID List:
+  <span class="s2">&quot;Serial Port&quot;</span> <span class="o">(</span>0x1101<span class="o">)</span>
+Protocol Descriptor List:
+  <span class="s2">&quot;L2CAP&quot;</span> <span class="o">(</span>0x0100<span class="o">)</span>
+  <span class="s2">&quot;RFCOMM&quot;</span> <span class="o">(</span>0x0003<span class="o">)</span>
+    Channel: 1
+Language Base Attr List:
+  code_ISO639: 0x656e
+  encoding:    0x6a
+  base_offset: 0x100</code></pre></div>
+
+
+<p>It&rsquo;s not a hugely informative dump of information&mdash;in fact it&rsquo;s
+downright cryptic&mdash;but it does provide us with the protocol and
+channel to connect with.</p>
+
+<p>By configuring <code>/etc/bluetooth/rfcomm.conf</code> correctly, we get a device
+<code>/dev/rfcomm0</code>.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">rfcomm0 <span class="o">{</span>
+  <span class="nb">bind </span>yes<span class="p">;</span>
+  device 00:0D:3F:45:DF:8A<span class="p">;</span>
+  channel 1<span class="p">;</span>
+  comment <span class="s2">&quot;ODB2 Sensor&quot;</span><span class="p">;</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p>Then we only need to restart the bluetooth service:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>sudo systemctl stop  bluetooth.service <span class="o">&amp;&amp;</span> <span class="se">\</span>
+  sudo systemctl start bluetooth.service</code></pre></div>
+
+
+<p>Eventually one could use the command:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>sudo rfcomm <span class="nb">bind </span><span class="m">0</span> 00:15:A0:7A:90:F2 1</code></pre></div>
+
+
+<p>Where the 0 is the device suffix, the hardware address is that of the
+ODB2 sensor and the 1 is the channel we want to connect on.  We should
+now see the RFCOMM device available for use:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>ls -l /dev/rfcomm0 
+crw-rw---- <span class="m">1</span> root uucp 216, <span class="m">0</span> Jan  <span class="m">1</span> 01:14 /dev/rfcomm0</code></pre></div>
+
+
+
+</div>
+
+
+    <footer>
+      <p class="meta">
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Burnett</span></span>
+
+        
+
+
+
+
+<time class='entry-date' datetime='2013-02-24T19:52:00-08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>24</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>7:52 pm</span></time>
+        
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/bluetooth/'>bluetooth</a>, <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/pi/'>pi</a>, <a class='category' href='/blog/categories/usb/'>usb</a>
+  
+</span>
+
+
+      </p>
+      
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://versionzero.github.io/blog/2013/02/24/towards-a-working-rpi-in-car-computer/" data-via="versionnaught" data-counturl="http://versionzero.github.io/blog/2013/02/24/towards-a-working-rpi-in-car-computer/" >Tweet</a>
+  
+  
+  
+</div>
+
+      
+      <p class="meta">
+        
+        <a class="basic-alignment left" href="/blog/2013/02/17/using-c-plus-plus-templates-to-generate-compile-time-arrays/" title="Previous Post: Using C++ templates to generate compile-time arrays">&laquo; Using C++ templates to generate compile-time arrays</a>
+        
+        
+        <a class="basic-alignment right" href="/blog/2013/03/24/mac-os-gets-cilk-plus-plus-support-via-clang-and-llvm/" title="Next Post: Mac OS Gets Cilk++ Support via Clang and LLVM">Mac OS Gets Cilk++ Support via Clang and LLVM &raquo;</a>
+        
+      </p>
+    </footer>
+  </article>
+  
+  <section>
+    <h2>Change History</h2>
+    
+  </section>
+  
+  
+  <section>
+    <h2>Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+  
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/01/11/karabiner-private-xml/">My Karabiner private.xml</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/03/streaming-from-iphone-to-iphone/">Streaming From iPhone to iPhone</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/27/ethical-computing/">Ethical Computing</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/24/logonui.exe-application-error-windows-10/">LogonUI.exe: Application Error, a Quick Fix</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/03/hello-world/">Hello, World!</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/versionzero">@versionzero</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'versionzero',
+            count: 6,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Ben Burnett -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'prereleasedideas';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://versionzero.github.io/blog/2013/02/24/towards-a-working-rpi-in-car-computer/';
+        var disqus_url = 'http://versionzero.github.io/blog/2013/02/24/towards-a-working-rpi-in-car-computer/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

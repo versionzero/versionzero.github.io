@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Tech | Pre-Released Ideas]]></title>
+  <link href="http://versionzero.github.io/blog/categories/tech/atom.xml" rel="self"/>
+  <link href="http://versionzero.github.io/"/>
+  <updated>2015-01-11T23:05:31-08:00</updated>
+  <id>http://versionzero.github.io/</id>
+  <author>
+    <name><![CDATA[Ben Burnett]]></name>
+    <email><![CDATA[yeah@right.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[My Karabiner private.xml]]></title>
+    <link href="http://versionzero.github.io/blog/2015/01/11/karabiner-private-xml/"/>
+    <updated>2015-01-11T08:41:00-08:00</updated>
+    <id>http://versionzero.github.io/blog/2015/01/11/karabiner-private-xml</id>
+    <content type="html"><![CDATA[<p><div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="ni">&amp;lt;</span>?xml version=<span class="ni">&amp;ldquo;</span>1.0<span class="ni">&amp;rdquo;</span>?&gt;
+<span class="nt">&lt;root&gt;</span>
+    <span class="nt">&lt;item&gt;</span>
+        <span class="nt">&lt;name&gt;</span>My Spaces (effective only on Excel)<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;appendix&gt;</span>Change Fn to Ctrl+Option+Command<span class="nt">&lt;/appendix&gt;</span>
+        <span class="nt">&lt;identifier&gt;</span>private.fn_control_option_command_hyper<span class="nt">&lt;/identifier&gt;</span>
+        <span class="nt">&lt;autogen&gt;&lt;strong&gt;</span>KeyToKey<span class="nt">&lt;/strong&gt;</span> KeyCode::FN, KeyCode::COMMAND_L, ModifierFlag::OPTION_L, ModifierFlag::CONTROL_L<span class="nt">&lt;/autogen&gt;</span>
+    <span class="nt">&lt;/item&gt;</span>
+<span class="nt">&lt;/root&gt;</span></code></pre></div></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Streaming From iPhone to iPhone]]></title>
+    <link href="http://versionzero.github.io/blog/2015/01/03/streaming-from-iphone-to-iphone/"/>
+    <updated>2015-01-03T07:11:00-08:00</updated>
+    <id>http://versionzero.github.io/blog/2015/01/03/streaming-from-iphone-to-iphone</id>
+    <content type="html"><![CDATA[<p>Part of this project includes code, not just writing. Obviously, the
+code to the site is available, but what follows is code that is
+independent of the site, in so far as it doesn&rsquo;t help run it. The code
+itself is hosted on another GitHub account, for my own reasons, but
+the writeups will all be here.</p>
+
+<!--more-->
+
+
+<h3>Streaming to iOS Devices</h3>
+
+<p>The first question that comes to mind is why? Why would you want to
+stream to an iOS device rather than just from it?</p>
+
+<p>The answer reveals how fortunate (spoiled) I&rsquo;ve been over the past few
+years: I&rsquo;ve always been a technology enthusiast and I have always been
+one to try to keep somewhat up-to-date on the latest gadgets. In some
+respects, this has meloed over the years, but it hasn&rsquo;t stopped me
+from buying a new previous generation iPhone every time a new one is
+released. In this case, it means I am currently an owner of a 5s and
+4s, as I have not gotten rid of the 4s yet. This is all relevant
+because it lead me to this question: what can I do with an old iPhone
+that I might not be able to do with a computer. It turns out, there is
+a lot you can use an old iPhone for, much of which is not relevant,
+except streaming.</p>
+
+<p>I used my iPhone 4s as a remote and as a Netflix source to stream to
+my TVs. The novelty of this quickly wore off, so I started looking
+around for other uses. This is when I realized I&rsquo;d like to install it
+in my car and stream to it, from another source. I have an iOS dock in
+my car. Not one that connects to an existing stereo or cables, but is
+instead a stereo designed to hold an iOS device internally (or a USB
+drive, etc.). The idea for device reuse or specialized use would be to
+allow to stream from one device to another. In my case, one iPhone to
+another. This way, the music, etc. is on one device, but the output is
+on another. This would make updating music and listening to it on the
+car iPhone trivial, as the device would never need to have updated
+manually, or if it did, it wouldn&rsquo;t be critical that be sync&rsquo;d every
+night or even week. (Yes, a &ldquo;first world problem&rdquo; (FWP), but hey, most
+technology fixes FWP these days&mdash;doesn&rsquo;t it? Not many Pinterest users
+bragging about the bag of support rice they had dropped on their
+head. Or maybe there are.)</p>
+
+<h3>How to Stream</h3>
+
+<p>Since we are writing an open source project, we can use a bunch of
+open source libraries and tools. For the base streaming part, I&rsquo;ve
+chosen to use <a href="https://github.com/abrasive/shairport">shairport</a>;
+unfortunately, it does not support iOS out of the box, so we need to
+make some modifications&mdash;which is actually a good thing: otherwise,
+we&rsquo;d be done with the writing, right about now.</p>
+
+<p><em>In progress</em></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Ethical Computing]]></title>
+    <link href="http://versionzero.github.io/blog/2014/12/27/ethical-computing/"/>
+    <updated>2014-12-27T22:21:02-08:00</updated>
+    <id>http://versionzero.github.io/blog/2014/12/27/ethical-computing</id>
+    <content type="html"><![CDATA[<p>This essay is about performing and consuming computational cycles
+ethically. Ethical computing is a means of computing with a focus on
+reducing harmful externalities. We shall explore what an ethical
+computation could look like from a variety of angles. We then argue
+for a variety of means by which we might enable further development in
+those areas.</p>
+
+<!--more-->
+
+
+<h2>Ethical Computation</h2>
+
+<p>We shall explore each of the following topics in turn:</p>
+
+<ol>
+<li>The source of labor for the construction of physical computers</li>
+<li>Sources of materials used in the construction of computer hardware</li>
+<li>Sources of power used for the creation of computing cycles
+(i.e. running the computer hardware)</li>
+<li>Consumer, academic, industrial, and business influences on the
+in-expense of computing products</li>
+</ol>
+
+
+<p>Later. we shall discus some possible solutions and , including:</p>
+
+<ol>
+<li>Frugal computing: the re-purposing of old computer hardware to
+offset the costs associated with the disposal as well as powering
+the hardware.</li>
+</ol>
+
+
+<p>We will focus on <em>popular</em> account of this issue, rather than a
+densely inassesible accademic treatment. Not that we believe this will
+lessen the power of the argument; we hope, instead, to make it more
+readable and multimedia sourced. Using news articles and video sources
+from TEDx, etc. we hope to broaden the audience and impact for this
+topic. We believe this more important than the strict rigor of
+academia&hellip; for the time being.</p>
+
+<h2>Sources of Labor</h2>
+
+<p>We begin with the human means of production. The party-line tells us
+sweatshops are bad, immoral, unethical, torturous, etc.. The opposite
+has been argued by
+<a href="https://www.ted.com/talks/leslie_t_chang_the_voices_of_china_s_workers?language=en">Leslie T. Chang</a>:
+According to Chang, the sweatshops can enable upward social,
+economic. and educational movement&mdash;even if not in every instance. In
+other words, the jobs create a more educated and highly skilled
+workforce, and open up new possitions for further future workforce
+accention. Clearly, this is not the whole picture: not all workers get
+out, not all places are good or even comprehendible places to work;
+however, that there exists exceptions is hopeful. It means there are
+examples for new companies to sustain cheap labour, without
+nessesarily being compromizingly opressive and exploitative&mdash;though
+they still might be considered these things, by &ldquo;western&rdquo; standards.</p>
+
+<p><em>In progress</em></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[LogonUI.exe: Application Error, a Quick Fix]]></title>
+    <link href="http://versionzero.github.io/blog/2014/12/24/logonui.exe-application-error-windows-10/"/>
+    <updated>2014-12-24T01:05:02-08:00</updated>
+    <id>http://versionzero.github.io/blog/2014/12/24/logonui.exe-application-error-windows-10</id>
+    <content type="html"><![CDATA[<p>The sentiment, &ldquo;I get the LogonUI.exe error after the Windows 10 TP
+setup,&rdquo; seems to be common. Fortunately, the solution is very straight
+forward if you are on a Lenovo machine.</p>
+
+<!--more-->
+
+
+<p>Here are the steps that worked for me:</p>
+
+<ol>
+<li>Start Windows 10 in Safe-Mode. To do this, press and hold the left
+shift key (the one you can use to turn caps lock on)</li>
+<li>Once you have booted Windows in to Safe Mode, it is time to apply
+the fix:
+
+<ul>
+<li>NOTE: The Uninstall tools will not work in Safe Mode. This is
+because the Installer Service is not running, nor can it be
+started in Safe Mode</li>
+</ul>
+</li>
+<li>We use a very simple fix, in that we do nothing more than move the
+offending applications out of the way, so they will not be found by
+any of the startup processes. On a Lenovo machine, the offending
+application&mdash;the fingerprint authentication tool&mdash;resides in
+&ldquo;C:\Program Files\Lenovo&rdquo;. Remedying the problem is a simple as moving
+the Lenovo directory to the desktop and rebooting</li>
+<li>I have yet to replace the Lenovo finger-print application with an
+equivalent package, but there seems to be some evidence to suggest
+that the Windows 10 biometrics tools can be used on their own</li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Locking Down Darwin]]></title>
+    <link href="http://versionzero.github.io/blog/2012/08/20/locking-down-darwin/"/>
+    <updated>2012-08-20T20:42:00-07:00</updated>
+    <id>http://versionzero.github.io/blog/2012/08/20/locking-down-darwin</id>
+    <content type="html"><![CDATA[<p>Darwin/OS X ships with some fairly permissive settings on some fairly
+dangerous tools. Which this needs a whole lot more work, the following
+script does a good job of securing a basic Darwin/OS X installation.</p>
+
+<!--more-->
+
+
+<p><div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="k">if</span> <span class="o">[</span> <span class="p">&amp;</span>ldquo<span class="p">;</span>root<span class="p">&amp;</span>rdquo<span class="p">;</span> !<span class="o">=</span> &lt;code&gt;whoami&lt;/code&gt; <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="p">&amp;</span>ldquo<span class="p">;</span>Must be root!<span class="p">&amp;</span>rdquo<span class="p">;</span> 2&gt;/dev/null
+    <span class="nb">exit </span>1
+<span class="k">fi</span>&lt;/p&gt;
+
+&lt;h1&gt;#&lt;/h1&gt;
+
+&lt;h1&gt;Allow only root to run <span class="p">&amp;</span>ldquo<span class="p">;</span>at<span class="p">&amp;</span>rdquo<span class="p">;</span> and <span class="p">&amp;</span>ldquo<span class="p">;</span>cron<span class="p">&amp;</span>rdquo<span class="p">;</span>&lt;/h1&gt;
+
+&lt;h1&gt;#&lt;/h1&gt;
+
+&lt;p&gt;rm -f /var/at/at.deny 2&gt;/dev/null
+rm -f /var/cron/deny 2&gt;/dev/null
+<span class="nb">echo</span> <span class="p">&amp;</span>ldquo<span class="p">;</span>root<span class="p">&amp;</span>rdquo<span class="p">;</span> &gt;/var/at/at.allow&lt;/p&gt;
+
+&lt;h1&gt;echo <span class="p">&amp;</span>ldquo<span class="p">;</span>root<span class="p">&amp;</span>rdquo<span class="p">;</span> &gt;/var/cron/allow&lt;/h1&gt;
+
+&lt;h1&gt;#&lt;/h1&gt;
+
+&lt;h1&gt;Set some sane permissions&lt;/h1&gt;
+
+&lt;h1&gt;#&lt;/h1&gt;
+
+&lt;p&gt;function _chmod <span class="o">()</span> <span class="o">{</span>
+    chmod <span class="p">&amp;</span>ldquo<span class="p">;</span><span class="nv">$@</span><span class="p">&amp;</span>rdquo<span class="p">;</span> 1&gt;/dev/null 2&gt;<span class="p">&amp;</span>amp<span class="p">;</span>1
+<span class="o">}</span>&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;chmod <span class="m">600</span> /etc/cron*
+&lt;/em&gt;chmod <span class="m">600</span> /var/cron/deny
+&lt;em&gt;chmod <span class="m">600</span> /var/cron/allow
+&lt;/em&gt;chmod <span class="m">600</span> /etc/ftpusers
+&lt;em&gt;chmod <span class="m">600</span> /etc/inetd.conf
+&lt;/em&gt;chmod <span class="m">600</span> /etc/syslog.conf&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;chmod <span class="m">750</span> /sbin/dumpfs
+&lt;/em&gt;chmod <span class="m">750</span> /usr/sbin/fdisk
+&lt;em&gt;chmod <span class="m">750</span> /sbin/fsck
+&lt;/em&gt;chmod <span class="m">750</span> /sbin/fsck_hfs
+&lt;em&gt;chmod <span class="m">750</span> /sbin/fsck_msdos
+&lt;/em&gt;chmod <span class="m">750</span> /sbin/halt
+_chmod <span class="m">750</span> /sbin/ifconfig&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;chmod <span class="m">750</span> /usr/bin/lpq
+&lt;/em&gt;chmod <span class="m">750</span> /usr/bin/lprm
+&lt;em&gt;chmod <span class="m">4750</span> /usr/bin/lpr
+&lt;/em&gt;chmod <span class="m">700</span> /usr/bin/script&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;chmod <span class="m">750</span> /usr/sbin/edquota
+&lt;/em&gt;chmod <span class="m">2750</span> /usr/sbin/lpc
+&lt;em&gt;chmod <span class="m">750</span> /usr/sbin/named
+&lt;/em&gt;chmod <span class="m">750</span> /usr/sbin/nmbd
+&lt;em&gt;chmod <span class="m">750</span> /usr/sbin/ntpdate
+&lt;/em&gt;chmod <span class="m">750</span> /usr/sbin/ntptrace
+&lt;em&gt;chmod <span class="m">750</span> /usr/sbin/pppd
+&lt;/em&gt;chmod <span class="m">750</span> /usr/sbin/rpcinfo
+&lt;em&gt;chmod <span class="m">750</span> /usr/sbin/smbd
+&lt;/em&gt;chmod <span class="m">750</span> /usr/sbin/syslogd
+&lt;em&gt;chmod <span class="m">750</span> /usr/sbin/tcpdchk
+&lt;/em&gt;chmod <span class="m">750</span> /usr/sbin/tcpdmatch
+&lt;em&gt;chmod <span class="m">750</span> /usr/sbin/tcpdump
+&lt;/em&gt;chmod <span class="m">750</span> /usr/sbin/vipw</code></pre></div></p>
+]]></content>
+  </entry>
+  
+</feed>
