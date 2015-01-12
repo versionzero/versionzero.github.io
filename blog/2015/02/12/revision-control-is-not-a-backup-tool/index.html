@@ -5,13 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>The Best Quality Latex Is Made With Rubber - Pre-Released Ideas</title>
+  <title>Revision Control Is Not Just a Backup Tool - Pre-Released Ideas</title>
   <meta name="author" content="Ben Burnett">
 
   
-  <meta name="description" content="Well, that may be overstating the point, but it makes for a good
-title. I ran in to this tool today, just by chance. Rubber handles
-everything for &hellip;">
+  <meta name="description" content="I made the mistake, when I started using revision control&mdash;like many
+others might have done&mdash;to think of it, conceptually, as a backup &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +19,7 @@ everything for &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://versionzero.github.io/blog/2011/08/09/the-best-quality-LaTeX-is-made-with-rubber">
+  <link rel="canonical" href="http://versionzero.github.io/blog/2015/02/12/revision-control-is-not-a-backup-tool">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Pre-Released Ideas" type="application/atom+xml">
@@ -82,7 +81,7 @@ everything for &hellip;">
     
   <header>
     
-      <h1 class="entry-title">The Best Quality Latex Is Made With Rubber</h1>
+      <h1 class="entry-title">Revision Control Is Not Just a Backup Tool</h1>
     
     
       <p class="meta">
@@ -91,7 +90,7 @@ everything for &hellip;">
 
 
 
-<time class='entry-date' datetime='2011-08-09T01:14:00-07:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>1:14 am</span></time>
+<time class='entry-date' datetime='2015-02-12T13:04:00-08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>1:04 pm</span></time>
         
 
 
@@ -105,76 +104,78 @@ everything for &hellip;">
   </header>
 
 
-<div class="entry-content"><p>Well, that may be overstating the point, but it makes for a good
-title. I ran in to this tool today, just by chance. <a href="https://launchpad.net/rubber">Rubber</a> handles
-everything for building <a href="http://en.wikipedia.org/wiki/LaTeX">LaTeX</a> documents.</p>
+<div class="entry-content"><p>I made the mistake, when I started using revision control&mdash;like many
+others might have done&mdash;to think of it, conceptually, as a backup
+mechanism. This, it turns out, I believe, is naive, and a very poor
+characterization of the power of revision control. Let me explain.</p>
 
 <!--more-->
 
 
-<p>In the past, I have used Makefile or the following bash macros to
-build my documents:</p>
+<p>First things first: starting an opinion piece by contradicting
+yourself is a gamble, but I hope you&rsquo;ll still hear me out.  And notice
+I do call this an opinion: I&rsquo;ve run across to many blog posts that
+make bold statements of fact, but provide little more than anecdotal
+evidence to support their claim.  There very well maybe evidence for
+what I am about to say, but I have not done any background work on the
+topic. (I will amend this article as my understanding of the tools
+improves.)</p>
 
-<div class="highlight"><pre><code class="language-batch" data-lang="batch">function makepdf () 
-{ 
-   NAME<span class="o">=</span>${<span class="m">1</span>%\.*};
-   TOOL<span class="o">=</span>${<span class="m">2</span>:-pdflatex};
-   <span class="k">if</span> [[ -f ${NAME}.bib ]]; then
-       <span class="n">/bin/rm</span> -i -f ${NAME}.bbl;
-       ${TOOL} ${NAME};
-       bibtex ${NAME};
-       ${TOOL} ${NAME};
-   fi;
-   ${TOOL} ${NAME};
-   <span class="k">if</span> [[ <span class="s2">&quot;${TOOL}&quot;</span> <span class="o">==</span> <span class="s2">&quot;latex&quot;</span> ]]; then
-       dvipdf ${NAME};
-   fi
-}
+<p>So what&rsquo;s the contradiction? Well, revision control tools actualy are
+backup tools: i.e. they obviously provide a way to recover old data.
+Moreover, there are backup and synchronization tools that use revision
+control under the hood.  But these uses only encompass a small subset
+of the power of revision control.  In what follows, we shall endeavour
+to present some of the important distinctions between revision control
+and backup tools.</p>
 
-function openpdf ()
-{ 
-   NAME<span class="o">=</span>${<span class="m">1</span>%\.*};
-   <span class="k">if</span> makepdf ${NAME}; then
-       <span class="k">if</span> [[ -f ${NAME}.pdf ]]; then
-           open ${NAME}.pdf;
-       fi;
-   fi 
-}</code></pre></div>
+<h2>What is Revision Control?</h2>
 
+<p>We have all invented or borrowed a (possibly naive) system for
+revisions to electronic documents.  In some cases, these revisions can
+be seen as dated copies of a file:</p>
 
-<p>With Rubber, I will just need:</p>
-
-<div class="highlight"><pre><code class="language-batch" data-lang="batch">function makepdf () 
-{ 
-   NAME<span class="o">=</span>${<span class="m">1</span>%\.*};
-   rubber --pdf ${NAME}.tex;
-}
-
-function openpdf () 
-{ 
-   NAME<span class="o">=</span>${<span class="m">1</span>%\.*};
-   <span class="k">if</span> makepdf ${NAME}; then
-       <span class="k">if</span> [[ -f ${NAME}.pdf ]]; then
-           open ${NAME}.pdf;
-       fi;
-   fi
-}</code></pre></div>
+<ul>
+<li>CV-2010-09-12.doc;</li>
+<li>CV-2012-04-09.doc;</li>
+<li>etc.</li>
+</ul>
 
 
-<p>Which mean I can still run:</p>
+<p>The intent, presumably, is to keep a history of the changes in the
+content as well as preserving any content removed in subsequent
+revisions.  This type of revision is practical for a small number of
+documents with fairly stable content: a curriculum vitae may change
+infrequently enough that there may only ever be a few revisions.
+Source code is another story.</p>
 
-<div class="highlight"><pre><code class="language-batch" data-lang="batch">$ openpdf tensor.</code></pre></div>
+<p>Source code revisions are useful for the same reasons CV revisions
+are.  Revisions for code are even more useful when there are
+(possibly) many people working over a long period of time on a
+project.  We will imagine this time period to be 20 years.  This
+length of time can almost ensure that there will exist code that was
+originally written by one person and subsequently updated by
+others. This is where revisions come in to play.</p>
 
-
-<p>To build my document (note the trailing dot is a product of bash-completion, but is handled by makepdf). What&rsquo;s more, I now get better error messages:</p>
-
-<div class="highlight"><pre><code class="language-batch" data-lang="batch">$ makepdf tensors.tex
-compiling tensors.tex...
-There were errors compiling tensors.tex.
-tensors.tex:105: Missing $ inserted.</code></pre></div>
-
-
-<p>How&rsquo;s that for concise? Much nicer than 3-4 screens of macro, font and style listings.</p>
+<p>Comments are one thing, they tell the reader what the code is supposed
+to do and why it was decided that it should be done that way&ndash;for
+better or worse.  Comments are discussions about code in a highly
+localized environment.  Documentation can be used to provide the
+more general purpose of the program, but there is still information
+missing.  A revision control system allows changes in code to be
+tracked but also explained in a different forum than would be
+appropriate for comments.  It&rsquo;s easy to imagine a body of code that is
+20 years old will have files and sub-systems that have changes a dozen
+or so times.  Keeping a record of all the comments from previous code
+that is no longer relevant to current code is a bad idea&ndash;it can
+confuse the intent of the code.  Instead, the changes can be cataloged
+as part of a revision; that is, they will still describe the code
+present in the old versions, but do not need to be preserved in new
+versions.  Furthermore, the revision comments can include a discussion
+on the nature of the changes.  In many cases this information is
+interesting and worth preserving, but is generally not useful to have
+at the code or documentation level: the fidelity of the content is too
+distinct from those.</p>
 </div>
 
 
@@ -190,12 +191,12 @@ tensors.tex:105: Missing $ inserted.</code></pre></div>
 
 
 
-<time class='entry-date' datetime='2011-08-09T01:14:00-07:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>1:14 am</span></time>
+<time class='entry-date' datetime='2015-02-12T13:04:00-08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>1:04 pm</span></time>
         
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/latex/'>latex</a>, <a class='category' href='/blog/categories/live/'>live</a>, <a class='category' href='/blog/categories/rubber/'>rubber</a>, <a class='category' href='/blog/categories/tech/'>tech</a>
+    <a class='category' href='/blog/categories/dos/'>dos</a>, <a class='category' href='/blog/categories/live/'>live</a>, <a class='category' href='/blog/categories/tech/'>tech</a>, <a class='category' href='/blog/categories/windows/'>windows</a>
   
 </span>
 
@@ -204,7 +205,7 @@ tensors.tex:105: Missing $ inserted.</code></pre></div>
       
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://versionzero.github.io/blog/2011/08/09/the-best-quality-LaTeX-is-made-with-rubber/" data-via="versionnaught" data-counturl="http://versionzero.github.io/blog/2011/08/09/the-best-quality-LaTeX-is-made-with-rubber/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://versionzero.github.io/blog/2015/02/12/revision-control-is-not-a-backup-tool/" data-via="versionnaught" data-counturl="http://versionzero.github.io/blog/2015/02/12/revision-control-is-not-a-backup-tool/" >Tweet</a>
   
   
   
@@ -213,10 +214,8 @@ tensors.tex:105: Missing $ inserted.</code></pre></div>
       
       <p class="meta">
         
-        <a class="basic-alignment left" href="/blog/2008/08/29/windows-environment-variable-trick/" title="Previous Post: Windows Environment Variable Tricks">&laquo; Windows Environment Variable Tricks</a>
+        <a class="basic-alignment left" href="/blog/2015/01/11/karabiner-private-xml/" title="Previous Post: My Karabiner private.xml">&laquo; My Karabiner private.xml</a>
         
-        
-        <a class="basic-alignment right" href="/blog/2012/08/20/locking-down-darwin/" title="Next Post: Locking Down Darwin">Locking Down Darwin &raquo;</a>
         
       </p>
     </footer>
@@ -314,8 +313,8 @@ tensors.tex:105: Missing $ inserted.</code></pre></div>
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://versionzero.github.io/blog/2011/08/09/the-best-quality-LaTeX-is-made-with-rubber/';
-        var disqus_url = 'http://versionzero.github.io/blog/2011/08/09/the-best-quality-LaTeX-is-made-with-rubber/';
+        var disqus_identifier = 'http://versionzero.github.io/blog/2015/02/12/revision-control-is-not-a-backup-tool/';
+        var disqus_url = 'http://versionzero.github.io/blog/2015/02/12/revision-control-is-not-a-backup-tool/';
         var disqus_script = 'embed.js';
       
     (function () {

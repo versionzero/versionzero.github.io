@@ -9,9 +9,8 @@
   <meta name="author" content="Ben Burnett">
 
   
-  <meta name="description" content="At the best of times, I can maintain a mediocre level of control of
-the English language. Unfortunately, this has not translates in to an
-ability to &hellip;">
+  <meta name="description" content="Introduction Recently, a number of our externally visible school machines were
+compromised. It is not clear the extent of the attacks effect, but &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +78,71 @@ ability to &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/02/17/finding-balance-between-local-and-remote-terminal-sessions/">Finding Balance Between Local and Remote Terminal Sessions</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2013-02-17T08:27:00-08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>17</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>8:27 am</span></time>
+        
+
+
+
+
+§ <a href="/blog/2013/02/17/finding-balance-between-local-and-remote-terminal-sessions/#disqus_thread"
+     data-disqus-identifier="http://versionzero.github.io/blog/2013/02/17/finding-balance-between-local-and-remote-terminal-sessions/">Comments</a>
+
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>Introduction</h2>
+
+<p>Recently, a number of our externally visible school machines were
+compromised. It is not clear the extent of the attacks effect, but
+from some of the details I did get, it sounds like the work of an
+amateur. Either way, the point of this article is not to speak to this
+issue directly, but rather focus on the inconvenience of having some
+of the host names you are accustomed to having access to suddenly
+disappear. To be clear, this is not an article complaining about
+having to change the hostnames we use on the command line, but ones
+that we have embedded in scripts and configuration files.</p>
+
+<p>I know I am not the only one who was caught by this, but it is not
+clear if others where as throughly irritated by the change. I do a
+great deal of work remotely and, as such, I am highly dependant on the
+stability of the set of host names I use. So, in order to protect
+myself from any similar future mishaps, I made a few changes to the
+way I work.</p>
+
+<p>It is not clear if my approach is particularly novel, but I&rsquo;ve not
+seen it listed elsewhere, so I thought I would document it for others
+to try. It occurred to me that I could easily bypass these issues by
+simply running a local load balancer that balances over all the remote
+school hosts. There are a number of issues that crop up using this
+approach, and I will try to address them as thoroughly as possible.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/02/17/finding-balance-between-local-and-remote-terminal-sessions/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -540,53 +604,9 @@ it anymore.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2002/08/20/doskey-macros/">Doskey Macros</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2002-08-20T20:42:00-07:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2002</span></span> <span class='time'>8:42 pm</span></time>
-        
-
-
-
-
-§ <a href="/blog/2002/08/20/doskey-macros/#disqus_thread"
-     data-disqus-identifier="http://versionzero.github.io/blog/2002/08/20/doskey-macros/">Comments</a>
-
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Doskey macros are a wonderful thing, even today with the GUI goodness
-Windows offers, there is still many a reason to drop down to the
-command line. Now, most Linux and UNIX folks will laugh at the
-arguably abysmal tool set given by the good old DOS prompt, but it can
-be made just a little more interesting if you start using doskey in
-conjunction with a set of batch files.</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2002/08/20/doskey-macros/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/posts/3">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -599,6 +619,10 @@ conjunction with a set of batch files.</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/02/12/revision-control-is-not-a-backup-tool/">Revision Control Is Not Just a Backup Tool</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/01/11/karabiner-private-xml/">My Karabiner private.xml</a>
@@ -614,10 +638,6 @@ conjunction with a set of batch files.</p>
     
       <li class="post">
         <a href="/blog/2014/12/24/logonui.exe-application-error-windows-10/">LogonUI.exe: Application Error, a Quick Fix</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/12/03/hello-world/">Hello, World!</a>
       </li>
     
   </ul>
