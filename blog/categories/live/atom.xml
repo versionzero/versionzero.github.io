@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Live | Pre-Released Ideas]]></title>
   <link href="http://versionzero.github.io/blog/categories/live/atom.xml" rel="self"/>
   <link href="http://versionzero.github.io/"/>
-  <updated>2015-01-12T16:16:14-08:00</updated>
+  <updated>2015-01-12T16:17:10-08:00</updated>
   <id>http://versionzero.github.io/</id>
   <author>
     <name><![CDATA[Ben Burnett]]></name>
@@ -18,9 +18,7 @@
     <link href="http://versionzero.github.io/blog/2015/01/12/new-gps-and-obd2-car-toy/"/>
     <updated>2015-01-12T16:15:00-08:00</updated>
     <id>http://versionzero.github.io/blog/2015/01/12/new-gps-and-obd2-car-toy</id>
-    <content type="html"><![CDATA[<h1></h1>
-
-<p>In a previous post, I started ruminating on the prospect of outfitting
+    <content type="html"><![CDATA[<p>In a previous post, I started ruminating on the prospect of outfitting
 my (then) new car with a GPS and On-Board-Diagnostic II (herein ODB2)
 logger machine.</p>
 
@@ -89,8 +87,11 @@ lines.</p>
 code, creating a public fork, and addressing every compilation error
 as they occurred.</p>
 
-<p><a href="http://en.wikipedia.org/wiki/Table_of_OBD-II_Codes">http://en.wikipedia.org/wiki/Table_of_OBD-II_Codes</a>
-<a href="http://planbperformance.net/dan/blog/?p=379">http://planbperformance.net/dan/blog/?p=379</a></p>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Table_of_OBD-II_Codes">http://en.wikipedia.org/wiki/Table_of_OBD-II_Codes</a></li>
+<li><a href="http://planbperformance.net/dan/blog/?p=379">http://planbperformance.net/dan/blog/?p=379</a></li>
+</ul>
+
 ]]></content>
   </entry>
   
