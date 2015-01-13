@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Gps | Pre-Released Ideas]]></title>
+  <link href="http://versionzero.github.io/blog/categories/gps/atom.xml" rel="self"/>
+  <link href="http://versionzero.github.io/"/>
+  <updated>2015-01-12T16:16:19-08:00</updated>
+  <id>http://versionzero.github.io/</id>
+  <author>
+    <name><![CDATA[Ben Burnett]]></name>
+    <email><![CDATA[yeah@right.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Revisiting the Car Computer]]></title>
+    <link href="http://versionzero.github.io/blog/2015/01/12/new-gps-and-obd2-car-toy/"/>
+    <updated>2015-01-12T16:15:00-08:00</updated>
+    <id>http://versionzero.github.io/blog/2015/01/12/new-gps-and-obd2-car-toy</id>
+    <content type="html"><![CDATA[<h1></h1>
+
+<p>In a previous post, I started ruminating on the prospect of outfitting
+my (then) new car with a GPS and On-Board-Diagnostic II (herein ODB2)
+logger machine.</p>
+
+<p>At the time, I didn&rsquo;t know much about GPS, ODB2, or even cars, for
+that matter.  It&rsquo;s now ten months later, and I still know very little
+about them, except I did learn enough to change the way I first
+approached the design of the logger machine.</p>
+
+<p>My first mistake, though you could not have convinced me of it at the
+time, was to not do an extensive survey of all GPS and ODB2 software
+packages for Linux.  Instead, having looked at only a handful, I
+picked a few packages that, while effective, were hard to use,
+troubleshoot and maintain.  (This is not entirely true, it was mostly
+the ODB2 packages that left much to be desired.)  Ten months has shown
+me that a few more weeks of searching would have saved me 7-8 months
+of frustration.</p>
+
+<p>But that&rsquo;s neither here nor there&ndash;so we won&rsquo;t dwell on it. Well, not
+too much.</p>
+
+<p>I recently had a few weeks leave from my day job(s?), and the part of
+the intractable boredom of being free of any responsibility to
+anything or anyone, revitalized my interest in this so called logger
+machine.</p>
+
+<p>The first thing I did was to take a much closer look at the available
+tools and put more effort into choosing the appropriate ones from the
+start. I&rsquo;m happy to say that the extra effort was not exerted in vain.
+I found a single tool (package?) that performs all the required
+functions.</p>
+
+<p>To be brief on the subject of research, I ran across an almost
+tailor-made-for-use-case project named, appropriately enough, &ldquo;OBD GPS
+Logger&rdquo; or obdgpslogger for short(er).  I am not sure how I missed it
+the first time through&hellip; I may have seen the screenshots of some of
+its tools and figured it was all graphically driven.  Anyway, what it
+does, simply, is periodically gather OBD data, GPS location data and a
+time-stamp.  With this information, it is a simple matter to examine
+where and when particular events in a vehicle take effect.  More
+interestingly, the data may help inform my future driving, by allowing
+me to identify weak points in my habits.  Whether or not I&rsquo;ll change
+my driving habits is an entirely different discussion.</p>
+
+<p>The obdgpslogger package was almost perfectly tailored to my use case.
+Unfortunately, because of architectural changes in its dependencies,
+it would not compile.  There were three possible solutions to this:
+(1) return to not bothering with the project, (2) remove all the
+pre-packaged and installed dependencies and install ones compatible
+with the available version of obdgpslogger, or (3) update the
+obdgpslogger code-base to support the new API exposed by its
+dependencies.</p>
+
+<p>At this point, (1) wasn&rsquo;t really a consideration, since I&rsquo;d just begun
+working on the project, and still retained some interest in its
+completion.  Of course (2) would be a reasonable compromise between
+having a functioning prototype and an out-of-date set of dependencies
+that may break other software packages, contain bugs that have only
+recently been addressed, and so on.  Still, it would have been a
+working solution, so I did not dismiss it entirely.  That is, not
+until I found that (3) only required a few trivial changes.  This
+established (3) as my approach; though the approach was also slightly
+coloured by my desire to write new code, even if it was just a few
+lines.</p>
+
+<p>With that decision made, it was a simple matter getting the original
+code, creating a public fork, and addressing every compilation error
+as they occurred.</p>
+
+<p><a href="http://en.wikipedia.org/wiki/Table_of_OBD-II_Codes">http://en.wikipedia.org/wiki/Table_of_OBD-II_Codes</a>
+<a href="http://planbperformance.net/dan/blog/?p=379">http://planbperformance.net/dan/blog/?p=379</a></p>
+]]></content>
+  </entry>
+  
+</feed>
