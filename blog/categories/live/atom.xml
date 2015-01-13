@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Live | Pre-Released Ideas]]></title>
   <link href="http://versionzero.github.io/blog/categories/live/atom.xml" rel="self"/>
   <link href="http://versionzero.github.io/"/>
-  <updated>2015-01-12T16:17:10-08:00</updated>
+  <updated>2015-01-12T16:25:48-08:00</updated>
   <id>http://versionzero.github.io/</id>
   <author>
     <name><![CDATA[Ben Burnett]]></name>
@@ -26,6 +26,9 @@ logger machine.</p>
 that matter.  It&rsquo;s now ten months later, and I still know very little
 about them, except I did learn enough to change the way I first
 approached the design of the logger machine.</p>
+
+<!--more-->
+
 
 <p>My first mistake, though you could not have convinced me of it at the
 time, was to not do an extensive survey of all GPS and ODB2 software
