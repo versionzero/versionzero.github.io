@@ -4,7 +4,7 @@
   <title><![CDATA[Pre-Released Ideas]]></title>
   <link href="http://versionzero.github.io/atom.xml" rel="self"/>
   <link href="http://versionzero.github.io/"/>
-  <updated>2015-02-21T17:31:32-08:00</updated>
+  <updated>2015-02-21T17:56:41-08:00</updated>
   <id>http://versionzero.github.io/</id>
   <author>
     <name><![CDATA[Ben Burnett]]></name>
@@ -1455,10 +1455,11 @@ use the %var%count%% form to extract the value:</p>
 <div class="highlight"><pre><code class="language-batch" data-lang="batch"><span class="k">call</span> <span class="k">echo</span> <span class="nv">%var%</span>count%%</code></pre></div>
 
 
-<p>On the other hand, while within a batch file use the %%var%count%%%
-form to extract the value:</p>
+<p>On the other hand, while within a batch file use the following form to
+extract the value:</p>
 
-<p>call echo %%var%count%%%</p>
+<div class="highlight"><pre><code class="language-batch" data-lang="batch"><span class="k">call</span> <span class="k">echo</span> <span class="nv">%%var%</span>count%%%</code></pre></div>
+
 
 <p>Note the extra strafing % signs. Both of the above expressions will
 display the number 42, as expected; or maybe it&rsquo;s is surprising, it
