@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Windows | Pre-Released Ideas]]></title>
   <link href="http://versionzero.github.io/blog/categories/windows/atom.xml" rel="self"/>
   <link href="http://versionzero.github.io/"/>
-  <updated>2015-02-21T17:22:04-08:00</updated>
+  <updated>2015-02-21T17:31:32-08:00</updated>
   <id>http://versionzero.github.io/</id>
   <author>
     <name><![CDATA[Ben Burnett]]></name>
@@ -122,7 +122,10 @@ operations can be done over a range of values, with little effort.</p>
     <link href="http://versionzero.github.io/blog/2007/12/13/windows-95-using-virtual-pc/"/>
     <updated>2007-12-13T04:34:00-08:00</updated>
     <id>http://versionzero.github.io/blog/2007/12/13/windows-95-using-virtual-pc</id>
-    <content type="html"><![CDATA[<h3>Requirements</h3>
+    <content type="html"><![CDATA[<p><em>NOTE:</em> These steps are known to work with VMware Fusion; steps for
+ other Virtual Machine packages are in progress.</p>
+
+<h3>Requirements</h3>
 
 <ul>
 <li>Windows 95 CD-ROM or disk image</li>
