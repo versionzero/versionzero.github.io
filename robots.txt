@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: 
-
-Sitemap: http://versionzero.github.io/sitemap.xml 
