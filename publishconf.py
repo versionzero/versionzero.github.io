@@ -10,7 +10,7 @@ import sys
 sys.path.append(os.curdir)
 from pelicanconf import *
 
-SITEURL = 'http://ontelevision.github.io'
+SITEURL = 'http://versionzero.org'
 RELATIVE_URLS = False
 
 FEED_ALL_ATOM = 'feeds/all.atom.xml'
@@ -19,5 +19,5 @@ CATEGORY_FEED_ATOM = 'feeds/%s.atom.xml'
 DELETE_OUTPUT_DIRECTORY = True
 
 # Make tracking content comments and site usage easy to track.
-DISQUS_SITENAME = "ontelevision"
-GOOGLE_ANALYTICS = "UA-75857917-1"
+DISQUS_SITENAME = "versionzero"
+GOOGLE_ANALYTICS = "UA-57348140-1"
