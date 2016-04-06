@@ -105,6 +105,7 @@ stopserver:
 
 publish:
 	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(PUBLISHCONF) $(PELICANOPTS)
+	cp -f CNAME $(OUTPUTDIR)
 
 venv:
 	test -d $(VENV_HOME) || mkdir -p $(VENV_HOME)
