@@ -1,0 +1,342 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Mac OS Gets Cilk++ Support via Clang and LLVM - Pre-Released Ideas</title>
+  <meta name="author" content="Ben Burnett">
+
+  
+  <meta name="description" content="Part of my yet un-finished graduate work involved using a combination
+of threading and cache-oblivious algorithms to improve the performance
+of &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://versionzero.github.io/blog/2013/03/24/mac-os-gets-cilk-plus-plus-support-via-clang-and-llvm">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Pre-Released Ideas" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-57348140-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Pre-Released Ideas</a></h1>
+  
+    <h2>An experiment in open-source, live and feedback-based technical writing.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="versionzero.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+  <article class="hentry" role="article">
+    
+  <header>
+    
+      <h1 class="entry-title">Mac OS Gets Cilk++ Support via Clang and LLVM</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2013-03-24T17:35:00-07:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>24</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>5:35 pm</span></time>
+        
+
+
+
+
+§ <a href="#disqus_thread"
+     data-disqus-identifier="http://versionzero.github.io">Comments</a>
+
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Part of my yet un-finished graduate work involved using a combination
+of threading and cache-oblivious algorithms to improve the performance
+of various linear algebra computations on sparse data sets.  During
+the course of my work, I used a few concurrency models, including
+Intel&rsquo;s <a href="http://cilkplus.org">Cilk Plus</a> data and task parallelism
+techniques.</p>
+
+<p>Recently, the <a href="http://cilkplus.github.com">Cilk Plus language extensions were introduced to the Clang frontend for LLVM</a>.  Which mean it
+was available on Darwin.  Though the <a href="http://gcc.gnu.org/svn/gcc/branches/cilkplus/">Cilk Plus extensions and runtime have been available in GCC</a> for some time,
+building the GCC code on Darwin proved to be non-trivial. (For me, at
+least&mdash; the Linux build was far easier.)  The introduction of Cilk
+Plus in Clang allows for easy compilation and use on the Darwin
+platform.</p>
+
+<!--more-->
+
+
+<p>I used the instructions given on the new <a href="http://cilkplus.github.com">Cilk Plus/LLVM GitHub site</a>
+to try a copy of the compiler on my local machine.</p>
+
+<p>The current implementation only provides support for a subset of the
+Cilk Plus language extensions: <code>cilk_spawn</code>, <code>cilk_sync</code>, and
+<code>hyperobjects</code>.  Leaving features like <code>cilk_for</code>, array notation and
+SIMD work for future releases.  Despite the not providing a full
+feature-set, the Cilk Plus/LLVM tools can already be used to make
+non-trivial parallel programs.</p>
+
+<p>I dusted off some benchmarking code I used for previous experiments
+and gave it a go on my laptop.  While not a high-performance big-steel
+machine, my laptop does weigh in well with 16GB of RAM and a quad-core
+Intel i7.</p>
+
+<p>The code I ran uses a well-known matrix multiplication algorithm&mdash;
+<a href="http://en.wikipedia.org/wiki/Strassen_algorithm">Strassen&rsquo;s algorithm</a>&mdash;to
+create large parallel workloads.  The code was based on example code
+shipped with the original 1996 <a href="http://supertech.csail.mit.edu/cilk/">MIT Cilk language and runtime</a>.  I modified the code
+slightly to include the new language extensions as well as to provide
+slightly more performance information. (I&rsquo;ll post the changes
+shortly.)</p>
+
+<p>I ran the code through a variety of benchmarks, which I&rsquo;ve included
+bellow.</p>
+
+<p><img src="/images/speed-up.png" title="Speedup of Strassen's Algorithm with
+ Cilk Plus/LLVM" alt="speedup" /></p>
+
+<p>The legend labels describe the size of the matrices being used.  For
+instance, 1024 mean that Strassen&rsquo;s Algorithm is being run using
+inputs of size 1024 by 1024.  Notice we don&rsquo;t achieve linear
+<a href="http://en.wikipedia.org/wiki/Speedup">speedup</a>, but we do get very
+close.  I think with a little extra fine tuning (1) and the explicit
+use of some SIMD instructions, near-linear speedup could be
+achieved. If you want the data, you can get it
+<a href="/files/llvmcilk-results.xlsx">here</a>.</p>
+
+<ol>
+<li>Yes, I know: cache oblivious algorithms aren&rsquo;t <em>supposed</em> to
+require tuning.  In practice, unfortunately, they do.  Maybe not as
+much tuning as their cache aware brethren, but still the require some.
+Even the original MIT code had some tuning code in it, so I&rsquo;m not
+alone in thinking it necessary.</li>
+</ol>
+
+</div>
+
+
+    <footer>
+      <p class="meta">
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Burnett</span></span>
+
+        
+
+
+
+
+<time class='entry-date' datetime='2013-03-24T17:35:00-07:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>24</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>5:35 pm</span></time>
+        
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/cilk/'>cilk</a>, <a class='category' href='/blog/categories/cilkplus/'>cilkplus</a>, <a class='category' href='/blog/categories/clang/'>clang</a>, <a class='category' href='/blog/categories/cpp/'>cpp</a>, <a class='category' href='/blog/categories/llvm/'>llvm</a>, <a class='category' href='/blog/categories/osx/'>osx</a>, <a class='category' href='/blog/categories/programming/'>programming</a>
+  
+</span>
+
+
+      </p>
+      
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://versionzero.github.io/blog/2013/03/24/mac-os-gets-cilk-plus-plus-support-via-clang-and-llvm/" data-via="versionnaught" data-counturl="http://versionzero.github.io/blog/2013/03/24/mac-os-gets-cilk-plus-plus-support-via-clang-and-llvm/" >Tweet</a>
+  
+  
+  
+</div>
+
+      
+      <p class="meta">
+        
+        <a class="basic-alignment left" href="/blog/2013/02/24/towards-a-working-rpi-in-car-computer/" title="Previous Post: Towards a working Raspberry Pi in-car computer">&laquo; Towards a working Raspberry Pi in-car computer</a>
+        
+        
+        <a class="basic-alignment right" href="/blog/2013/06/29/designing-from-what-you-dont-want/" title="Next Post: Designing from what you don't want.">Designing from what you don&#8217;t want. &raquo;</a>
+        
+      </p>
+    </footer>
+  </article>
+  
+  <section>
+    <h2>Change History</h2>
+    
+  </section>
+  
+  
+  <section>
+    <h2>Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+  
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/01/12/new-gps-and-obd2-car-toy/">Revisiting the Car Computer</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/12/revision-control-is-not-a-backup-tool/">Revision Control Is Not Just a Backup Tool</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/11/karabiner-private-xml/">My Karabiner private.xml</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/03/streaming-from-iphone-to-iphone/">Streaming From iPhone to iPhone</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/27/ethical-computing/">Ethical Computing</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/versionzero">@versionzero</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'versionzero',
+            count: 6,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Ben Burnett -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'prereleasedideas';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://versionzero.github.io/blog/2013/03/24/mac-os-gets-cilk-plus-plus-support-via-clang-and-llvm/';
+        var disqus_url = 'http://versionzero.github.io/blog/2013/03/24/mac-os-gets-cilk-plus-plus-support-via-clang-and-llvm/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
