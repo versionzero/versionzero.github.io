@@ -7,7 +7,7 @@ SITENAME = u'versionzero'
 SITEURL = 'http://versionzero.org'
 
 PATH = 'content'
-ARTICLE_SAVE_AS = '{date:%Y/%m/%d}/{slug}.html'
+ARTICLE_SAVE_AS = 'blog/{date:%Y/%m/%d}/{slug}/index.html'
 ARTICLE_URL = ARTICLE_SAVE_AS
 
 TIMEZONE = 'America/Edmonton'
