@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>versionzero</title><link href="http://versionzero.org/" rel="alternate"></link><link href="http://versionzero.org/feeds/all.atom.xml" rel="self"></link><id>http://versionzero.org/</id><updated>2016-05-05T20:00:00-06:00</updated><entry><title>Elasticsearch Queries</title><link href="http://versionzero.org/blog/2016/05/05/els/index.html" rel="alternate"></link><updated>2016-05-05T20:00:00-06:00</updated><author><name>Ben Burnett</name></author><id>tag:versionzero.org,2016-05-05:blog/2016/05/05/els/index.html</id><summary type="html">&lt;h2&gt;Introduction&lt;/h2&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>versionzero</title><link href="http://versionzero.org/" rel="alternate"></link><link href="http://versionzero.org/feeds/all.atom.xml" rel="self"></link><id>http://versionzero.org/</id><updated>2016-05-05T20:00:00-06:00</updated><entry><title>Elasticsearch Queries</title><link href="http://versionzero.org/blog/2016/05/05/els/index.html" rel="alternate"></link><published>2016-05-05T20:00:00-06:00</published><author><name>Ben Burnett</name></author><id>tag:versionzero.org,2016-05-05:blog/2016/05/05/els/index.html</id><summary type="html">&lt;h2&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;I've been working with
 &lt;a href="https://www.elastic.co/products/elasticsearch"&gt;Elasticsearch&lt;/a&gt;
 recently at work, and I'm impressed with it. My only issue with it is
-the query and filter syntax. I find them to be hard to read and worse
-to write. I have spent more time wondering why a query returns nothing
-than I have spent writing the queries to begin with. This needed to
-change.&lt;/p&gt;
-&lt;p&gt;One solution I came to was to have someone else write them. I ruled
-that out after considering my job security. The next solution was what
-I settled on: the idea was to create a language with a simple syntax,
-but retained the expressiveness of the &lt;a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html"&gt;ELS query
-DSL&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Before we jump in to the solution, I should say that we also use
-&lt;a href="https://www.python.org"&gt;Python&lt;/a&gt; as our primary language in the
-office, so I'll be using it to illustrate the ideas. Of course, the
-solution can be expressed in many other languages and in many other
-forms.&lt;/p&gt;
+the query and filter syntax. I find the syntax to be hard to read and
+worse to write. I must have spent more time wondering why the results
+of a query are empty than I have spent writing the queries to begin
+with. I needed something to change this.&lt;/p&gt;
+&lt;p&gt;I first considered having someone else write them, but I ruled that
+out after carefully considering my job security.  The solution I
+settled on was to create a language with a simple syntax that retained
+the expressiveness of a subset of the &lt;a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html"&gt;ELS query
+DSL&lt;/a&gt;
+that I was finding problematic.&lt;/p&gt;
+&lt;p&gt;I should mention that we also use &lt;a href="https://www.python.org"&gt;Python&lt;/a&gt; as
+our primary language in the office, so I'll be using it to illustrate
+the ideas. Of course, the solution can be expressed in many other
+languages and in many other forms. So don't feel that this needs to be
+a Python only solution.&lt;/p&gt;
+&lt;h2&gt;The Data&lt;/h2&gt;
 &lt;p&gt;For the purposes of our queries, we'll be using a simple bank account
 data set. Typical entries are of the form:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;
@@ -39,21 +41,18 @@ data set. Typical entries are of the form:&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Our data only has five entries: one for &lt;code&gt;account&lt;/code&gt;, &lt;code&gt;balance&lt;/code&gt;,
-&lt;code&gt;firstname&lt;/code&gt;, &lt;code&gt;lastname&lt;/code&gt;, and &lt;code&gt;age&lt;/code&gt;. While it's a little simplistic for
-real-world use, it'll be sufficient for our purposes.&lt;/p&gt;
+&lt;p&gt;Our data has five entries: one for &lt;code&gt;account&lt;/code&gt;, &lt;code&gt;balance&lt;/code&gt;, &lt;code&gt;firstname&lt;/code&gt;,
+&lt;code&gt;lastname&lt;/code&gt;, and &lt;code&gt;age&lt;/code&gt;. While it's too simplistic for real-world use,
+it'll be sufficient for our purposes.&lt;/p&gt;
 &lt;h2&gt;The Language&lt;/h2&gt;
-&lt;p&gt;The language, and it's syntax, are simple, but it's powerful enough to
-solve our problem.&lt;/p&gt;
 &lt;p&gt;Consider the following expression:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;#39;balance&amp;#39; &amp;gt; 1200
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;The expression says: filter out all the bank accounts such that only
-the ones with a &lt;code&gt;balance&lt;/code&gt; entry greater than $1200 are
-returned. Pretty simple, eh? Let's look at it's equivalent ELS query
-DSL version:&lt;/p&gt;
+&lt;p&gt;The intent of the expression is to filter out all the bank accounts
+such that only the ones with a &lt;code&gt;balance&lt;/code&gt; entry greater than $1200 are
+returned. Let's look at it's equivalent ELS query DSL version:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
   &lt;span class="nt"&gt;&amp;quot;range&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="nt"&gt;&amp;quot;balance&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
@@ -64,9 +63,9 @@ DSL version:&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Not much more complex in this case, but it's already clear that the
-latter requires at least more typing. Now, let's make it a little more
-complex.&lt;/p&gt;
+&lt;p&gt;The ELS query is not much more complex in this case, but it requires
+that we aleast do more typing. If we make the expression more complex,
+the problem I faced starts to emerge.&lt;/p&gt;
 &lt;p&gt;Consider the following:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;#39;balance&amp;#39; &amp;gt; 3500 and &amp;#39;age&amp;#39; &amp;gt; 20
 &lt;/pre&gt;&lt;/div&gt;
@@ -98,31 +97,33 @@ complex.&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;OK, so it doesn't have to be that verbose; the query &lt;em&gt;can&lt;/em&gt; be written
-in more compact form. But the point here is not to show how much
-typing is required, rather how complex queries can become.&lt;/p&gt;
+&lt;p&gt;Notice I said equivalent to, rather than this is the &lt;em&gt;best&lt;/em&gt; was to
+write the equivalent query in terms of the ELS query DSL. The ELS
+query doesn't need to be so verbose; the query &lt;em&gt;can&lt;/em&gt; be written in
+more compact form. But the point here is not to show how much typing
+is required, rather it is to impress how complex queries &lt;em&gt;can&lt;/em&gt; become.&lt;/p&gt;
 &lt;p&gt;It should be clear that expressions are at least easier to write, read
-and, in my opinion, reason about.&lt;/p&gt;
+and, in my opinion, reason about, than there ELS query equivalent.&lt;/p&gt;
 &lt;h2&gt;The Source&lt;/h2&gt;
-&lt;p&gt;Now, on to the more interesting part: the code. As promised, I'll be
-using Python in my example code, but feel free to use one of your
-choosing.&lt;/p&gt;
-&lt;p&gt;At first blush, I thought I might need to write a lexer/parser. (I
-know, I know: there's a library for that. Don't worry, I would have
-researched them first, if I'd gone this direction.) It turns out I
-didn't need to. Python ships with it's own parser built in. In fact,
-it's the one used to parse the Python language itself.&lt;/p&gt;
-&lt;p&gt;I'll leave out most of the details of how the Python parser works, and
-possibly return to it in a future article. For now, all we need to
-know is that we can feed in an arbitrary string of text and the parser
-will spit out the resulting &lt;a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree"&gt;abstract syntax
-tree&lt;/a&gt; (herein
-AST). For instance, given the first expression we considered:&lt;/p&gt;
+&lt;p&gt;On to the more interesting part.&lt;/p&gt;
+&lt;p&gt;As promised, we'll be using Python in this example code, but feel free
+to use one of your choosing.&lt;/p&gt;
+&lt;p&gt;Initially, the problem seemed to require a small, home-grown
+parser. However, it became clear that this was not necessary: Python
+ships with it's own parser baked right in. We can just use it instead
+of creating our own.&lt;/p&gt;
+&lt;p&gt;The details of how the Python parser works are not relevant to our
+discussion, but they may be the topic of a future post. What we need
+to know is that an arbitrary string of text can be feed in to the
+parser and a &lt;a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree"&gt;abstract syntax
+tree&lt;/a&gt; (herein AST)
+will be emitted.&lt;/p&gt;
+&lt;p&gt;Recall the first expression we considered:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;#39;balance&amp;#39; &amp;gt; 1200
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;The Python parser would return the following to us:&lt;/p&gt;
+&lt;p&gt;Given the above as input, the Python parser emits the following:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;ast&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Compare&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
   &lt;span class="n"&gt;left&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;ast&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;balance&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
   &lt;span class="n"&gt;ops&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;ast&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Gt&lt;/span&gt;&lt;span class="p"&gt;()],&lt;/span&gt;
@@ -131,9 +132,9 @@ AST). For instance, given the first expression we considered:&lt;/p&gt;
 
 
 &lt;p&gt;For those of you who are Python programmers: notice we didn't even
-have to pass in valid Python code. The parser will still do the right
-thing. Well, the right thing for us, in this case. We won't be
-compiling the code, so semantics can be ignored.&lt;/p&gt;
+have to pass in meaningful Python code; the semantics, in this
+case. can be ignored. (What does string greater than integer even
+mean?)&lt;/p&gt;
 &lt;p&gt;For reference, the AST was created using:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;expr&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&amp;#39;balance&amp;#39; &amp;gt; 1200&amp;quot;&lt;/span&gt;
 &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;ast&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dump&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ast&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;expr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;mode&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;eval&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;body&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -142,10 +143,11 @@ compiling the code, so semantics can be ignored.&lt;/p&gt;
 
 &lt;p&gt;We can argue over the use of &lt;code&gt;eval&lt;/code&gt; another time; for now, let's just
 agree that it works.&lt;/p&gt;
-&lt;p&gt;Now that we have the AST for our expression, we need to convert it
-into something we can use in Elasticsearch. Since the AST is just a
-bunch of nested structures, we can traverse it easily.&lt;/p&gt;
-&lt;p&gt;Here is the guts of the code to generate the ELS query:&lt;/p&gt;
+&lt;p&gt;Given the AST for an expression, we need to convert it into something
+that can be used with Elasticsearch. The AST is just a collection of
+nested structures, so it can be traversed easily.&lt;/p&gt;
+&lt;p&gt;Here is the guts of the code to take an expression generate the ELS
+query equivalent:&lt;/p&gt;
 &lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
  2
  3
@@ -200,27 +202,19 @@ bunch of nested structures, we can traverse it easily.&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 
-&lt;p&gt;Let's trace through the code to see what it does:&lt;/p&gt;
+&lt;p&gt;This is what it does:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Lines 1-3 is code we've already seen, but with a minor
+&lt;li&gt;Lines 1-3 contain code we've already seen, but with a minor
   alteration. It takes a string as an input, generates an AST from the
   expression, and then passes it to &lt;code&gt;_expr2els&lt;/code&gt; for further
   processing.&lt;/li&gt;
-&lt;li&gt;Lines 5-7 define a map from an AST type to a string. This is useful
-  later on in the code when we want to translate from the type of node
-  we are considering in to a string equivalent which we use in the
-  final ELS query output.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;The interesting part of the program lies between lines 9 and 25. Lets
-take a closer look at them.&lt;/p&gt;
-&lt;ul&gt;
+&lt;li&gt;Lines 5-7 define a map from an AST type to a string.&lt;/li&gt;
 &lt;li&gt;Lines 10-17 handle the case where the AST node is a boolean
-  expression (i.e. &lt;code&gt;ast.BoolOp&lt;/code&gt;). Notice that on lines 12-13 we handle
-  the case where &lt;code&gt;node.values&lt;/code&gt; has more than one entry.&lt;/li&gt;
+  expression (i.e. &lt;code&gt;ast.BoolOp&lt;/code&gt;).&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2&gt;Boolean Expressions&lt;/h2&gt;
 &lt;p&gt;Boolean expressions require that we handle more than one child
-expression.  To see why this is necessary, consider the following
+expression. To see why this is necessary, consider the following
 expression:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;#39;balance&amp;#39; &amp;gt; 3500 and (&amp;#39;age&amp;#39; &amp;gt; 20 or &amp;#39;age&amp;#39; &amp;lt; 30)
 &lt;/pre&gt;&lt;/div&gt;
@@ -287,8 +281,8 @@ we see on lines 8-17 in the AST expression.&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 
-&lt;p&gt;Translates the type of the AST node to a string. (That's &lt;code&gt;'and'&lt;/code&gt; or
-&lt;code&gt;'or'&lt;/code&gt; in our language.) And begins to build the ELS query. If we
+&lt;p&gt;Translates the type of the AST node to a string&amp;mdash;that's &lt;code&gt;'and'&lt;/code&gt; or
+&lt;code&gt;'or'&lt;/code&gt; in our language&amp;mdash;and begins to build the ELS query. If we
 re-read the AST dump above, we can see that it would generate the
 following:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
@@ -305,8 +299,8 @@ following:&lt;/p&gt;
 
 &lt;p&gt;Where &lt;code&gt;...&lt;/code&gt; would be the &lt;code&gt;child&lt;/code&gt; entries. Notice that &lt;code&gt;child&lt;/code&gt; could be
 another boolean expression or a comparison expression (covered
-bellow). Meaning, since we traverse the AST recursively, &lt;code&gt;child&lt;/code&gt; can
-be a very complex sub-expression.&lt;/p&gt;
+bellow). Since because of the way we traverse the AST recursively,
+&lt;code&gt;child&lt;/code&gt; can be a very complex sub-expression.&lt;/p&gt;
 &lt;h2&gt;Comparison Operators&lt;/h2&gt;
 &lt;p&gt;Once again, consider the following expression:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;#39;balance&amp;#39; &amp;gt; 3500
@@ -348,7 +342,11 @@ comparison operator:&lt;/p&gt;
 &lt;p&gt;Taken together, these small chunks of code can go a long way to
 simplifying the process of writing ELS queries. It's not clear if this
 is the best way, but it's a way that has worked well for me.&lt;/p&gt;
-&lt;p&gt;If you have any questions or comments, please leave them bellow.&lt;/p&gt;</summary><category term="Elasticsearch"></category><category term="Python"></category></entry><entry><title>Installing Windows NT 4.0 Workstation Using Virtual PC</title><link href="http://versionzero.org/blog/2007/09/23/windows-nt-4.0-workstation-using-virtual-pc/index.html" rel="alternate"></link><updated>2007-09-23T04:34:00-06:00</updated><author><name>Ben Burnett</name></author><id>tag:versionzero.org,2007-09-23:blog/2007/09/23/windows-nt-4.0-workstation-using-virtual-pc/index.html</id><summary type="html">&lt;p&gt;I assume a lot about you’re background in these tutorials. They are
+&lt;p&gt;The current implementation emits very verbose code. It may be possible
+to optimize the resulting output, but this would require a second
+stage. I didn't think it critical to this post to venture down that
+route. I may visit how this might be done in a future post.&lt;/p&gt;
+&lt;p&gt;If you have any questions or comments, please leave them bellow.&lt;/p&gt;</summary><category term="Elasticsearch"></category><category term="Python"></category></entry><entry><title>Installing Windows NT 4.0 Workstation Using Virtual PC</title><link href="http://versionzero.org/blog/2007/09/23/windows-nt-4.0-workstation-using-virtual-pc/index.html" rel="alternate"></link><published>2007-09-23T04:34:00-06:00</published><author><name>Ben Burnett</name></author><id>tag:versionzero.org,2007-09-23:blog/2007/09/23/windows-nt-4.0-workstation-using-virtual-pc/index.html</id><summary type="html">&lt;p&gt;I assume a lot about you’re background in these tutorials. They are
 primarily for myself, because I have a tendency to forget things more
 often than not, so don’t be too distressed and come calling on me if I
 don’t hold your hand through the whole thing. (Sorry, it’s 12:04am,
@@ -474,7 +472,7 @@ access that drive. If you try to run Windows once it has been loaded,
 Windows goes all wonky— try it, if you don’t believe me.) What really
 strikes me about this is that even the OS/2 additions work—and who
 even uses that OS anymore?! (Says the man installing Windows 95)—so
-why doesn’t it work on a stock Windows 95 install?&lt;/p&gt;</summary><category term="Windows"></category><category term="Virtual PC"></category><category term="Virtual Machines"></category></entry><entry><title>Doskey Macros</title><link href="http://versionzero.org/blog/2002/08/20/doskey-macros/index.html" rel="alternate"></link><updated>2002-08-20T05:00:00-06:00</updated><author><name>Ben Burnett</name></author><id>tag:versionzero.org,2002-08-20:blog/2002/08/20/doskey-macros/index.html</id><summary type="html">&lt;p&gt;Doskey macros are a wonderful thing, even today with the GUI goodness
+why doesn’t it work on a stock Windows 95 install?&lt;/p&gt;</summary><category term="Windows"></category><category term="Virtual PC"></category><category term="Virtual Machines"></category></entry><entry><title>Doskey Macros</title><link href="http://versionzero.org/blog/2002/08/20/doskey-macros/index.html" rel="alternate"></link><published>2002-08-20T05:00:00-06:00</published><author><name>Ben Burnett</name></author><id>tag:versionzero.org,2002-08-20:blog/2002/08/20/doskey-macros/index.html</id><summary type="html">&lt;p&gt;Doskey macros are a wonderful thing, even today with the GUI goodness
 Windows offers, there is still many a reason to drop down to the
 command line. Now, most Linux and UNIX folks will laugh at the
 arguably abysmal tool set given by the good old DOS prompt, but it can
