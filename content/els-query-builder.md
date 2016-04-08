@@ -12,22 +12,25 @@ Summary: Building Elasticsearch queries and filters the easy way
 I've been working with
 [Elasticsearch](https://www.elastic.co/products/elasticsearch)
 recently at work, and I'm impressed with it. My only issue with it is
-the query and filter syntax. I find them to be hard to read and worse
-to write. I have spent more time wondering why a query returns nothing
-than I have spent writing the queries to begin with. This needed to
-change.
+the query and filter syntax. I find the syntax to be hard to read and
+worse to write. I must have spent more time wondering why the results
+of a query are empty than I have spent writing the queries to begin
+with. I needed something to change this.
 
-One solution I came to was to have someone else write them. I ruled
-that out after considering my job security. The next solution was what
-I settled on: the idea was to create a language with a simple syntax,
-but retained the expressiveness of the [ELS query
-DSL](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html).
+I first considered having someone else write them, but I ruled that
+out after carefully considering my job security.  The solution I
+settled on was to create a language with a simple syntax that retained
+the expressiveness of a subset of the [ELS query
+DSL](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html)
+that I was finding problematic.
 
-Before we jump in to the solution, I should say that we also use
-[Python](https://www.python.org) as our primary language in the
-office, so I'll be using it to illustrate the ideas. Of course, the
-solution can be expressed in many other languages and in many other
-forms.
+I should mention that we also use [Python](https://www.python.org) as
+our primary language in the office, so I'll be using it to illustrate
+the ideas. Of course, the solution can be expressed in many other
+languages and in many other forms. So don't feel that this needs to be
+a Python only solution.
+
+## The Data
 
 For the purposes of our queries, we'll be using a simple bank account
 data set. Typical entries are of the form:
@@ -52,14 +55,11 @@ data set. Typical entries are of the form:
 ]
 ```
 
-Our data only has five entries: one for `account`, `balance`,
-`firstname`, `lastname`, and `age`. While it's a little simplistic for
-real-world use, it'll be sufficient for our purposes.
+Our data has five entries: one for `account`, `balance`, `firstname`,
+`lastname`, and `age`. While it's too simplistic for real-world use,
+it'll be sufficient for our purposes.
 
 ## The Language
-
-The language, and it's syntax, are simple, but it's powerful enough to
-solve our problem.
 
 Consider the following expression:
 
@@ -67,10 +67,9 @@ Consider the following expression:
 'balance' > 1200
 ```
 
-The expression says: filter out all the bank accounts such that only
-the ones with a `balance` entry greater than $1200 are
-returned. Pretty simple, eh? Let's look at it's equivalent ELS query
-DSL version:
+The intent of the expression is to filter out all the bank accounts
+such that only the ones with a `balance` entry greater than $1200 are
+returned. Let's look at it's equivalent ELS query DSL version:
 
 ```json
 {
@@ -82,9 +81,9 @@ DSL version:
 }
 ```
 
-Not much more complex in this case, but it's already clear that the
-latter requires at least more typing. Now, let's make it a little more
-complex.
+The ELS query is not much more complex in this case, but it requires
+that we aleast do more typing. If we make the expression more complex,
+the problem I faced starts to emerge.
 
 Consider the following:
 
@@ -119,37 +118,41 @@ This expression is equivalent to:
 }
 ```
 
-OK, so it doesn't have to be that verbose; the query _can_ be written
-in more compact form. But the point here is not to show how much
-typing is required, rather how complex queries can become.
+Notice I said equivalent to, rather than this is the _best_ was to
+write the equivalent query in terms of the ELS query DSL. The ELS
+query doesn't need to be so verbose; the query _can_ be written in
+more compact form. But the point here is not to show how much typing
+is required, rather it is to impress how complex queries _can_ become.
 
 It should be clear that expressions are at least easier to write, read
-and, in my opinion, reason about.
+and, in my opinion, reason about, than there ELS query equivalent.
 
 ## The Source
 
-Now, on to the more interesting part: the code. As promised, I'll be
-using Python in my example code, but feel free to use one of your
-choosing.
+On to the more interesting part.
 
-At first blush, I thought I might need to write a lexer/parser. (I
-know, I know: there's a library for that. Don't worry, I would have
-researched them first, if I'd gone this direction.) It turns out I
-didn't need to. Python ships with it's own parser built in. In fact,
-it's the one used to parse the Python language itself.
+As promised, we'll be using Python in this example code, but feel free
+to use one of your choosing.
 
-I'll leave out most of the details of how the Python parser works, and
-possibly return to it in a future article. For now, all we need to
-know is that we can feed in an arbitrary string of text and the parser
-will spit out the resulting [abstract syntax
-tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) (herein
-AST). For instance, given the first expression we considered:
+Initially, the problem seemed to require a small, home-grown
+parser. However, it became clear that this was not necessary: Python
+ships with it's own parser baked right in. We can just use it instead
+of creating our own.
+
+The details of how the Python parser works are not relevant to our
+discussion, but they may be the topic of a future post. What we need
+to know is that an arbitrary string of text can be feed in to the
+parser and a [abstract syntax
+tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) (herein AST)
+will be emitted.
+
+Recall the first expression we considered:
 
 ```text
 'balance' > 1200
 ```
 
-The Python parser would return the following to us:
+Given the above as input, the Python parser emits the following:
 
 ```python
 ast.Compare(
@@ -159,9 +162,9 @@ ast.Compare(
 ```
 
 For those of you who are Python programmers: notice we didn't even
-have to pass in valid Python code. The parser will still do the right
-thing. Well, the right thing for us, in this case. We won't be
-compiling the code, so semantics can be ignored.
+have to pass in meaningful Python code; the semantics, in this
+case. can be ignored. (What does string greater than integer even
+mean?)
 
 For reference, the AST was created using:
 
@@ -173,11 +176,12 @@ print ast.dump(ast.parse(expr, mode='eval').body)
 We can argue over the use of `eval` another time; for now, let's just
 agree that it works.
 
-Now that we have the AST for our expression, we need to convert it
-into something we can use in Elasticsearch. Since the AST is just a
-bunch of nested structures, we can traverse it easily.
+Given the AST for an expression, we need to convert it into something
+that can be used with Elasticsearch. The AST is just a collection of
+nested structures, so it can be traversed easily.
 
-Here is the guts of the code to generate the ELS query:
+Here is the guts of the code to take an expression generate the ELS
+query equivalent:
 
     #!python
     def expr2els(expr):
@@ -207,28 +211,20 @@ Here is the guts of the code to generate the ELS query:
     result = expr2els(expr)
     print json.dumps(result, indent=2)
 
-Let's trace through the code to see what it does:
+This is what it does:
 
-* Lines 1-3 is code we've already seen, but with a minor
+* Lines 1-3 contain code we've already seen, but with a minor
   alteration. It takes a string as an input, generates an AST from the
   expression, and then passes it to `_expr2els` for further
   processing.
-* Lines 5-7 define a map from an AST type to a string. This is useful
-  later on in the code when we want to translate from the type of node
-  we are considering in to a string equivalent which we use in the
-  final ELS query output.
-
-The interesting part of the program lies between lines 9 and 25. Lets
-take a closer look at them.
-
+* Lines 5-7 define a map from an AST type to a string.
 * Lines 10-17 handle the case where the AST node is a boolean
-  expression (i.e. `ast.BoolOp`). Notice that on lines 12-13 we handle
-  the case where `node.values` has more than one entry.
+  expression (i.e. `ast.BoolOp`).
 
 ## Boolean Expressions
 
 Boolean expressions require that we handle more than one child
-expression.  To see why this is necessary, consider the following
+expression. To see why this is necessary, consider the following
 expression:
 
 ```text
@@ -281,8 +277,8 @@ The remainder of the code,
     op = op2str[type(node.op)]
     parent = {'bool': {'filter': {op: child}}}
     
-Translates the type of the AST node to a string. (That's `'and'` or
-`'or'` in our language.) And begins to build the ELS query. If we
+Translates the type of the AST node to a string&mdash;that's `'and'` or
+`'or'` in our language&mdash;and begins to build the ELS query. If we
 re-read the AST dump above, we can see that it would generate the
 following:
 
@@ -300,8 +296,8 @@ following:
 
 Where `...` would be the `child` entries. Notice that `child` could be
 another boolean expression or a comparison expression (covered
-bellow). Meaning, since we traverse the AST recursively, `child` can
-be a very complex sub-expression.
+bellow). Since because of the way we traverse the AST recursively,
+`child` can be a very complex sub-expression.
 
 ## Comparison Operators
 
@@ -343,5 +339,10 @@ comparison operator:
 Taken together, these small chunks of code can go a long way to
 simplifying the process of writing ELS queries. It's not clear if this
 is the best way, but it's a way that has worked well for me.
+
+The current implementation emits very verbose code. It may be possible
+to optimize the resulting output, but this would require a second
+stage. I didn't think it critical to this post to venture down that
+route. I may visit how this might be done in a future post.
 
 If you have any questions or comments, please leave them bellow.
