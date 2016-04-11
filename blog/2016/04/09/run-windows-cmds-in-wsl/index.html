@@ -122,6 +122,16 @@ is a directory that can be read and written to by both Windows and
 Linux.</p>
 <p>Note that the current implementation of the monitoring tool will not
 delete the <code>run</code> file, so we need to clean it up ourselves.</p>
+<h2>How it Works</h2>
+<p>The monitoring tools is a plain vanilla Win32 application. When run,
+it opens <code>C:\winrun</code> and monitors the directory for the creation of
+new files.</p>
+<p>The processes by which it accomplishes this is a somewhat complex, but
+that is generally the nature of Win32 programming.</p>
+<p>First, we use the
+<a href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa365465(v=vs.85).aspx"><code>ReadDirectoryChangesW</code></a>
+API call to detect any change in the directory we are monitoring. When
+a file is added,</p>
 <p>If you have any questions or comments for me, please leave them bellow.</p>
   </div>
   <div class="tag-cloud">
