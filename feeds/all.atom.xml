@@ -45,7 +45,7 @@ short walk from the bed to the fringe, he quietly committed himself to
 returning to the city.&lt;/p&gt;
 &lt;p&gt;He hoped that his time in the house, in the wind, with it's creeks,
 and it's groans, dropped in the prairies, just east of the mountains,
-would not return to him in a sleepless night in the city.&lt;/p&gt;</summary><category term="Fiction"></category></entry><entry><title>Run Windows commands from the Windows Subsystem for Linux</title><link href="http://versionzero.org/blog/2016/04/09/run-windows-cmds-in-wsl/index.html" rel="alternate"></link><published>2016-04-09T12:00:00-06:00</published><author><name>Ben Burnett</name></author><id>tag:versionzero.org,2016-04-09:blog/2016/04/09/run-windows-cmds-in-wsl/index.html</id><summary type="html">&lt;h2&gt;Introduction&lt;/h2&gt;
+would not return to him in a sleepless night in the city.&lt;/p&gt;</summary><category term="Fiction"></category><category term="Short Stories"></category></entry><entry><title>Run Windows commands from the Windows Subsystem for Linux</title><link href="http://versionzero.org/blog/2016/04/09/run-windows-cmds-in-wsl/index.html" rel="alternate"></link><published>2016-04-09T12:00:00-06:00</published><author><name>Ben Burnett</name></author><id>tag:versionzero.org,2016-04-09:blog/2016/04/09/run-windows-cmds-in-wsl/index.html</id><summary type="html">&lt;h2&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;A while back, &lt;a href="http://www.microsoft.com/"&gt;Microsoft&lt;/a&gt; announced a
 partnership with &lt;a href="http://www.canonical.com"&gt;Canonical&lt;/a&gt; that would
 bring native &lt;a href="https://blogs.windows.com/windowsexperience/2016/04/06/announcing-windows-10-insider-preview-build-14316/"&gt;support for
@@ -108,16 +108,6 @@ is a directory that can be read and written to by both Windows and
 Linux.&lt;/p&gt;
 &lt;p&gt;Note that the current implementation of the monitoring tool will not
 delete the &lt;code&gt;run&lt;/code&gt; file, so we need to clean it up ourselves.&lt;/p&gt;
-&lt;h2&gt;How it Works&lt;/h2&gt;
-&lt;p&gt;The monitoring tools is a plain vanilla Win32 application. When run,
-it opens &lt;code&gt;C:\winrun&lt;/code&gt; and monitors the directory for the creation of
-new files.&lt;/p&gt;
-&lt;p&gt;The processes by which it accomplishes this is a somewhat complex, but
-that is generally the nature of Win32 programming.&lt;/p&gt;
-&lt;p&gt;First, we use the
-&lt;a href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa365465(v=vs.85).aspx"&gt;&lt;code&gt;ReadDirectoryChangesW&lt;/code&gt;&lt;/a&gt;
-API call to detect any change in the directory we are monitoring. When
-a file is added,&lt;/p&gt;
 &lt;p&gt;If you have any questions or comments for me, please leave them bellow.&lt;/p&gt;</summary><category term="Windows"></category><category term="Linux"></category></entry><entry><title>Elasticsearch Queries</title><link href="http://versionzero.org/blog/2016/04/05/els/index.html" rel="alternate"></link><published>2016-04-05T20:00:00-06:00</published><author><name>Ben Burnett</name></author><id>tag:versionzero.org,2016-04-05:blog/2016/04/05/els/index.html</id><summary type="html">&lt;h2&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;I've been working with
 &lt;a href="https://www.elastic.co/products/elasticsearch"&gt;Elasticsearch&lt;/a&gt;

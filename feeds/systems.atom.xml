@@ -62,14 +62,4 @@ is a directory that can be read and written to by both Windows and
 Linux.&lt;/p&gt;
 &lt;p&gt;Note that the current implementation of the monitoring tool will not
 delete the &lt;code&gt;run&lt;/code&gt; file, so we need to clean it up ourselves.&lt;/p&gt;
-&lt;h2&gt;How it Works&lt;/h2&gt;
-&lt;p&gt;The monitoring tools is a plain vanilla Win32 application. When run,
-it opens &lt;code&gt;C:\winrun&lt;/code&gt; and monitors the directory for the creation of
-new files.&lt;/p&gt;
-&lt;p&gt;The processes by which it accomplishes this is a somewhat complex, but
-that is generally the nature of Win32 programming.&lt;/p&gt;
-&lt;p&gt;First, we use the
-&lt;a href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa365465(v=vs.85).aspx"&gt;&lt;code&gt;ReadDirectoryChangesW&lt;/code&gt;&lt;/a&gt;
-API call to detect any change in the directory we are monitoring. When
-a file is added,&lt;/p&gt;
 &lt;p&gt;If you have any questions or comments for me, please leave them bellow.&lt;/p&gt;</summary><category term="Windows"></category><category term="Linux"></category></entry></feed>
