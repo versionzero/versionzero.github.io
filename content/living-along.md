@@ -2,7 +2,7 @@ Title: Living Alone
 Date: 2016-04-10 7:00
 Status: published
 Category: Writing
-Tags: Fiction
+Tags: Fiction, Short Stories
 Slug: living-alone
 Authors: Ben Burnett
 Summary: Just a man and his house.
