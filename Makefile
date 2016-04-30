@@ -1,6 +1,13 @@
-PY?=python
-PELICAN?=pelican
+APP=versionzero
+VENV_HOME=~/virtualenvs
+VENV_DIR=$(VENV_HOME)/$(APP)
+VENV_BIN=virtualenv
+PYTHON_BIN=$(VENV_DIR)/bin/python
+PIP_BIN=$(VENV_DIR)/bin/pip
+
+PELICAN?=$(VENV_DIR)/bin/pelican
 PELICANOPTS=
+GHP_IMPORT=$(VENV_DIR)/bin/ghp-import
 
 BASEDIR=$(CURDIR)
 INPUTDIR=$(BASEDIR)/content
@@ -26,13 +33,6 @@ CLOUDFILES_CONTAINER=my_cloudfiles_container
 DROPBOX_DIR=~/Dropbox/Public/
 
 GITHUB_PAGES_BRANCH=master
-
-APP=versionzero
-VENV_HOME=~/virtualenvs
-VENV_DIR=$(VENV_HOME)/$(APP)
-VENV_BIN=virtualenv
-PYTHON_BIN=$(VENV_DIR)/bin/python
-PIP_BIN=$(VENV_DIR)/bin/pip
 
 DEBUG ?= 0
 ifeq ($(DEBUG), 1)
@@ -79,16 +79,16 @@ regenerate:
 
 serve:
 ifdef PORT
-	cd $(OUTPUTDIR) && $(PY) -m pelican.server $(PORT)
+	cd $(OUTPUTDIR) && $(PYTHON_BIN) -m pelican.server $(PORT)
 else
-	cd $(OUTPUTDIR) && $(PY) -m pelican.server
+	cd $(OUTPUTDIR) && $(PYTHON_BIN) -m pelican.server
 endif
 
 serve-global:
 ifdef SERVER
-	cd $(OUTPUTDIR) && $(PY) -m pelican.server 80 $(SERVER)
+	cd $(OUTPUTDIR) && $(PYTHON_BIN) -m pelican.server 80 $(SERVER)
 else
-	cd $(OUTPUTDIR) && $(PY) -m pelican.server 80 0.0.0.0
+	cd $(OUTPUTDIR) && $(PYTHON_BIN) -m pelican.server 80 0.0.0.0
 endif
 
 
@@ -134,7 +134,7 @@ cf_upload: publish
 	cd $(OUTPUTDIR) && swift -v -A https://auth.api.rackspacecloud.com/v1.0 -U $(CLOUDFILES_USERNAME) -K $(CLOUDFILES_API_KEY) upload -c $(CLOUDFILES_CONTAINER) .
 
 github: publish
-	ghp-import -m "Generate Pelican site" -b $(GITHUB_PAGES_BRANCH) $(OUTPUTDIR)
+	$(GHP_IMPORT) -m "Generate Pelican site" -b $(GITHUB_PAGES_BRANCH) $(OUTPUTDIR)
 	git push origin $(GITHUB_PAGES_BRANCH)
 
 .PHONY: html help clean regenerate serve serve-global devserver publish ssh_upload rsync_upload dropbox_upload ftp_upload s3_upload cf_upload github
