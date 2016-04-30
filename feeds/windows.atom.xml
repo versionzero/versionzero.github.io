@@ -1,5 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>versionzero</title><link href="http://versionzero.org/" rel="alternate"></link><link href="http://versionzero.org/feeds/windows.atom.xml" rel="self"></link><id>http://versionzero.org/</id><updated>2007-09-23T04:34:00-06:00</updated><entry><title>Installing Windows NT 4.0 Workstation Using Virtual PC</title><link href="http://versionzero.org/blog/2007/09/23/windows-nt-4.0-workstation-using-virtual-pc/index.html" rel="alternate"></link><published>2007-09-23T04:34:00-06:00</published><author><name>Ben Burnett</name></author><id>tag:versionzero.org,2007-09-23:blog/2007/09/23/windows-nt-4.0-workstation-using-virtual-pc/index.html</id><summary type="html">&lt;p&gt;I assume a lot about you’re background in these tutorials. They are
+<feed xmlns="http://www.w3.org/2005/Atom"><title>versionzero</title><link href="http://versionzero.org/" rel="alternate"></link><link href="http://versionzero.org/feeds/windows.atom.xml" rel="self"></link><id>http://versionzero.org/</id><updated>2008-08-29T05:00:00-06:00</updated><entry><title>Windows Environment Variable Trick</title><link href="http://versionzero.org/blog/2008/08/29/windows-environment-variable-trick/index.html" rel="alternate"></link><published>2008-08-29T05:00:00-06:00</published><author><name>Ben Burnett</name></author><id>tag:versionzero.org,2008-08-29:blog/2008/08/29/windows-environment-variable-trick/index.html</id><summary type="html">&lt;p&gt;Although not explicitly supported, it is possible to make, let's call
+them pseudo-arrays, in the environment with no fancy string parsing or
+anything sloppy like that. It involves some clever uses of call
+command to evaluate and extract values from the pseudo-arrays and well
+positioned &lt;code&gt;%&lt;/code&gt; signs to demarcate which environment variables we want
+evaluated and when.&lt;/p&gt;
+&lt;p&gt;Lets look at a quick example to see the basic mechanism. Assignment would be
+done as follows:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;set count=1
+set var%count%=42
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;There are two method to extract the value, while at the command prompt
+use the &lt;code&gt;%var%count%%&lt;/code&gt; form to extract the value:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;call echo %var%count%%
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;On the other hand, while within a batch file use the following form to
+extract the value:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;call echo %%var%count%%%
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Note the extra strafing &lt;code&gt;%&lt;/code&gt; signs. Both of the above expressions will
+display the number 42, as expected; or maybe it's is surprising, it
+all depends on your expectations and what you might consider
+interesting and cool. Sadly, I do consider this cool; insofar as it
+works on a straight out of the box Windows installation. The technique
+may look a little hairy, but it's quite useful. The above will print
+the contents of &lt;code&gt;var1&lt;/code&gt; (i.e. 42) as we explained.  We could also
+replace the &lt;code&gt;echo&lt;/code&gt; command with a set if we wanted to set some other
+variable to the value in &lt;code&gt;var1&lt;/code&gt;. Meaning the following is a valid
+assignment at the command line:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;call set x=%var%count%%
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Where:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;echo %x%
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Would print the number 42, as we would expect. We can even carry out
+arithmetic operations on these pseudo-arrays' values. For instance,
+the following would subtract 2 from the value of &lt;code&gt;varN&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;call set /a x=%var%N%%-2 &amp;gt;nul
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Note that here we need to redirect the output to the &lt;code&gt;nul&lt;/code&gt; port,
+otherwise the result arithmetic operation would be printed to the
+screen. Either way, this technique means that some rather advanced
+operations can be done over a range of values, with some effort.&lt;/p&gt;</summary><category term="DOS"></category><category term="cmd"></category><category term="Environment Variables"></category><category term="Windows"></category></entry><entry><title>Installing Windows NT 4.0 Workstation Using Virtual PC</title><link href="http://versionzero.org/blog/2007/09/23/windows-nt-4.0-workstation-using-virtual-pc/index.html" rel="alternate"></link><published>2007-09-23T04:34:00-06:00</published><author><name>Ben Burnett</name></author><id>tag:versionzero.org,2007-09-23:blog/2007/09/23/windows-nt-4.0-workstation-using-virtual-pc/index.html</id><summary type="html">&lt;p&gt;I assume a lot about you’re background in these tutorials. They are
 primarily for myself, because I have a tendency to forget things more
 often than not, so don’t be too distressed and come calling on me if I
 don’t hold your hand through the whole thing. (Sorry, it’s 12:04am,
