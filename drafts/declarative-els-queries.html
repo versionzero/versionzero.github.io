@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="http://versionzero.org/theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="http://versionzero.org/theme/stylesheet/pygments.min.css">
+  <link rel="stylesheet" type="text/css" href="http://versionzero.org/theme/stylesheet/font-awesome.min.css">
+
+
+    <link href="http://versionzero.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="versionzero Atom">
+
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+<meta name="author" content="Ben Burnett" />
+<meta name="description" content="Building Elasticsearch queries from classes" />
+<meta name="keywords" content="Elasticsearch, Python">
+<meta property="og:site_name" content="versionzero"/>
+<meta property="og:title" content="Declarative Elasticsearch Queries"/>
+<meta property="og:description" content="Building Elasticsearch queries from classes"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://versionzero.org/drafts/declarative-els-queries.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2016-05-23 20:00:00-06:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://versionzero.org/author/ben-burnett.html">
+<meta property="article:section" content="Programming"/>
+<meta property="article:tag" content="Elasticsearch"/>
+<meta property="article:tag" content="Python"/>
+<meta property="og:image" content="">
+  <title>versionzero &ndash; Declarative Elasticsearch Queries</title>
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="http://versionzero.org">
+        <img src="http://versionzero.org/theme/img/profile.png" alt="" title="">
+      </a>
+      <h1><a href="http://versionzero.org"></a></h1>
+      <p></p>
+      <nav>
+        <ul class="list">
+        </ul>
+      </nav>
+      <ul class="social">
+      </ul>
+    </div>
+  </aside>
+  <main>
+
+<article>
+  <header>
+    <h1 id="declarative-els-queries">Declarative Elasticsearch Queries</h1>
+    <p>Posted on Mon 23 May 2016 in <a href="http://versionzero.org/category/programming.html">Programming</a></p>
+  </header>
+  <div>
+    <h2>Introduction</h2>
+<p>As I wrote
+<a href="http://versionzero.org/blog/2016/04/05/els/index.html">previously</a>, I
+am not happy with the way in which Elasticsearch (ELS) queries must be
+written.</p>
+<p>In the last article I introduced a small domain specific language to
+help simplify creating ELS queries and filters. Unfortunatly, with
+that method, it was not possible to capture all possible queries in a
+general manner. This article introduces a new style of defining
+queries. This time we use class declarations as the basis for creating
+queries.</p>
+<h2>The Data</h2>
+<p>As with last time, we'll be using a simple bank account data
+set. Typical entries are of the form:</p>
+<div class="highlight"><pre><span></span><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;account&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="nt">&quot;balance&quot;</span><span class="p">:</span> <span class="mi">16623</span><span class="p">,</span>
+    <span class="nt">&quot;firstname&quot;</span><span class="p">:</span> <span class="s2">&quot;Iris&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;lastname&quot;</span><span class="p">:</span> <span class="s2">&quot;Mckenzie&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;age&quot;</span><span class="p">:</span> <span class="mi">29</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;account&quot;</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
+    <span class="nt">&quot;balance&quot;</span><span class="p">:</span> <span class="mi">3450</span><span class="p">,</span>
+    <span class="nt">&quot;firstname&quot;</span><span class="p">:</span> <span class="s2">&quot;Bradshaw&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;lastname&quot;</span><span class="p">:</span> <span class="s2">&quot;Rupertson&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;age&quot;</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span>
+  <span class="p">}</span>
+  <span class="err">...</span>
+<span class="p">]</span>
+</pre></div>
+
+
+<p>Our data has five entries: one for <code>account</code>, <code>balance</code>, <code>firstname</code>,
+<code>lastname</code>, and <code>age</code>. While it's too simplistic for real-world use,
+it'll be sufficient for our purposes.</p>
+<p>Imagine we wanted to run the following query:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;query&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;filter&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;range&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;balance&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;gt&quot;</span><span class="p">:</span> <span class="mi">1200</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>It would be nice to be able to re-write this as a Python
+class. Imagine we could write the following:</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SomeInterestingQuery</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  <span class="k">class</span> <span class="nc">query</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="nb">filter</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="n">els</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="n">balance__gt</span><span class="o">=</span><span class="mi">1200</span><span class="p">),</span>
+    <span class="p">]</span>
+</pre></div>
+
+
+<p>Where <code>els.range</code> is a class that can be initialized with one or more
+arguments.</p>
+<h2>Class dissection</h2>
+<p>To begin understanding the aproch, we need to first conver how to
+extract useful information from a class declaration.</p>
+<p>Python is well suited to our needs, but other languages, like
+JavaScript, can be used to accomplish something similar. In
+particular, Python alows us to gather information about a class, like
+the name of the class and it's member, which is the basis for our
+approach.</p>
+<p>Consider the following class:</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ClassName1</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  <span class="n">variable1</span> <span class="o">=</span> <span class="s2">&quot;Variable #1&quot;</span>
+  <span class="k">class</span> <span class="nc">innerclass</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">variable2</span> <span class="o">=</span> <span class="mi">42</span>
+</pre></div>
+
+
+<p>We would like to be able to distil it in to it's component parts. Namely,</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;variable1&quot;</span><span class="p">:</span> <span class="s2">&quot;Variable #1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;innerclass&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;variable2&quot;</span><span class="p">:</span> <span class="mi">42</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>We can do something like the following to help extract the information
+we are interested in:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">inspect</span>
+
+<span class="k">def</span> <span class="nf">extract_members</span><span class="p">(</span><span class="n">elements</span><span class="p">):</span>
+  <span class="n">results</span> <span class="o">=</span> <span class="bp">None</span>
+  <span class="k">if</span> <span class="n">isintrinsic</span><span class="p">(</span><span class="n">elements</span><span class="p">):</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">elements</span>
+  <span class="k">elif</span> <span class="n">isintrinsiclist</span><span class="p">(</span><span class="n">elements</span><span class="p">):</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">]</span>
+  <span class="k">return</span> <span class="n">results</span>
+
+<span class="k">def</span> <span class="nf">extract</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+  <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+  <span class="k">if</span> <span class="n">cls</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">name</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;__&#39;</span><span class="p">:</span>  <span class="c1"># Ignore private members.</span>
+        <span class="n">attr</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">(</span><span class="n">attr</span><span class="p">):</span>
+          <span class="n">results</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">extract</span><span class="p">(</span><span class="n">attr</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="n">results</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">extract_members</span><span class="p">(</span><span class="n">attr</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">results</span>
+</pre></div>
+
+
+<p>Where the helpers <code>isintrinsic</code> and <code>isintrinsiclist</code> determine if the
+given element is a built-in type or a list containing data in the form
+of built-in types.</p>
+<p>To use these methods is a matter of calling:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="n">extract</span><span class="p">(</span><span class="n">ClassName1</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Which will print the results we saw above.</p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://versionzero.org/tag/elasticsearch.html">Elasticsearch</a>
+      <a href="http://versionzero.org/tag/python.html">Python</a>
+    </p>
+  </div>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'versionzero';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</article>
+
+    <footer>
+        <p>&copy; Ben Burnett </p>
+<p>Based on <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a></p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-57348140-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "name": "Declarative Elasticsearch Queries",
+  "headline": "Declarative Elasticsearch Queries",
+  "datePublished": "2016-05-23 20:00:00-06:00",
+  "dateModified": "",
+  "author": {
+    "@type": "Person",
+    "name": "Ben Burnett",
+    "url": "http://versionzero.org/author/ben-burnett.html"
+  },
+  "image": "{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/profile.png",
+  "url": "http://versionzero.org/drafts/declarative-els-queries.html",
+  "description": "Building Elasticsearch queries from classes"
+}
+</script></body>
+</html>
