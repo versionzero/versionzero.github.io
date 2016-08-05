@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>versionzero</title><link href="http://versionzero.org/" rel="alternate"></link><link href="http://versionzero.org/feeds/all.atom.xml" rel="self"></link><id>http://versionzero.org/</id><updated>2016-05-21T05:00:00-06:00</updated><entry><title>Time Expired Sets Using Redis</title><link href="http://versionzero.org/blog/2016/05/21/expiring-sets/index.html" rel="alternate"></link><published>2016-05-21T05:00:00-06:00</published><author><name>Ben Burnett</name></author><id>tag:versionzero.org,2016-05-21:blog/2016/05/21/expiring-sets/index.html</id><summary type="html">&lt;p&gt;&lt;a href="http://redis.io"&gt;Redis&lt;/a&gt; is an open-source (or free software) server
+<feed xmlns="http://www.w3.org/2005/Atom"><title>versionzero</title><link href="http://versionzero.org/" rel="alternate"></link><link href="http://versionzero.org/feeds/all.atom.xml" rel="self"></link><id>http://versionzero.org/</id><updated>2016-08-04T05:00:00-06:00</updated><entry><title>Drifting to Sleep</title><link href="http://versionzero.org/blog/2016/08/04/sleep/index.html" rel="alternate"></link><published>2016-08-04T05:00:00-06:00</published><author><name>Ben Burnett</name></author><id>tag:versionzero.org,2016-08-04:blog/2016/08/04/sleep/index.html</id><summary type="html">&lt;p&gt;He sat in the bath tub with a bag on his head and a hose at the
+ready. His hand on the nozzle calmly cured the angst of his life,
+leaving nothing but dread. &lt;em&gt;Will my family understand?&lt;/em&gt; he
+wondered. &lt;em&gt;Probably not,&lt;/em&gt; he concluded.&lt;/p&gt;
+&lt;p&gt;It had been a miserable life for him, as far as misery goes. He'd
+never had a good head on his shoulders, never got what others saw. He
+was confined to the simple life, and told he should be content with
+what he had. But he had nothing--and he knew it. &lt;em&gt;Nothing worth
+anything&lt;/em&gt;, he thought.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Actually, I do have something,&lt;/em&gt; he corrected himself. &lt;em&gt;I have plenty
+of regret, that's what I have. And anger; that too,&lt;/em&gt; he mused. He was
+right, in a way. Nothing had come easy to him; but somethings had
+come, nevertheless. These thoughts were useless now though, not enough
+reverse his pending actions. No miracle would save his soul, no soul
+could save his life.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;It's done, it's decided, nothing can stop it now,&lt;/em&gt; echoed a voice
+much like his own, but somehow distinct.&lt;/p&gt;
+&lt;p&gt;The hiss of the hose hummed in his head. &lt;em&gt;It'll all be over soon,&lt;/em&gt; it
+said. Slowly from then, he slipped silently to sleep. Descending down
+in to the deep.&lt;/p&gt;</summary><category term="Fiction"></category><category term="Short Stories"></category></entry><entry><title>Time Expired Sets Using Redis</title><link href="http://versionzero.org/blog/2016/05/21/expiring-sets/index.html" rel="alternate"></link><published>2016-05-21T05:00:00-06:00</published><author><name>Ben Burnett</name></author><id>tag:versionzero.org,2016-05-21:blog/2016/05/21/expiring-sets/index.html</id><summary type="html">&lt;p&gt;&lt;a href="http://redis.io"&gt;Redis&lt;/a&gt; is an open-source (or free software) server
 for managing in-memory data structures. It provides native support for
 a variety of data structures, including strings, lists, (sorted) sets,
 etc. It can be used in a variety of situations, such as providing fast
