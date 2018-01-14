@@ -21,10 +21,7 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 # Blogroll
-#LINKS = (('Pelican', 'http://getpelican.com/'),
-#         ('Python.org', 'http://python.org/'),
-#         ('Jinja2', 'http://jinja.pocoo.org/'),
-#         ('You can modify those links in your config file', '#'),)
+LINKS = (('GitHub', 'https://github.com/versionzero'),)
 
 # Social widget
 #SOCIAL = (('You can add links in your config file', '#'),
@@ -39,7 +36,9 @@ RELATIVE_URLS = True
 
 # Set the them to our local one, as we will be changing it to suit our
 # needs.
-THEME = "themes/Flex"
+THEME = "themes/bricks"
+#THEME = "pelican-themes/foundation-default-colours"
+
 
 # Articles should be automatically published as a draft.
 DEFAULT_METADATA = {
